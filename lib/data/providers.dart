@@ -4,6 +4,7 @@ import 'mock/mock_filing_repository.dart';
 import 'mock/mock_lawsuit_repository.dart';
 import 'mock/mock_referral_repository.dart';
 import 'mock/mock_subscription_repository.dart';
+import 'models/lawsuit.dart';
 import 'models/rewards_summary.dart';
 import 'models/subscription_plan.dart';
 import 'repositories/filing_repository.dart';
@@ -38,4 +39,10 @@ final subscriptionPlansProvider = FutureProvider<List<SubscriptionPlan>>(
 
 final rewardsProvider = FutureProvider<RewardsSummary>(
   (ref) => ref.watch(referralRepositoryProvider).getRewards(),
+);
+
+/// Loads a single lawsuit by id (or `null` if none matches). Used by the
+/// lawsuit detail screen.
+final lawsuitByIdProvider = FutureProvider.family<Lawsuit?, String>(
+  (ref, id) => ref.watch(lawsuitRepositoryProvider).getById(id),
 );
