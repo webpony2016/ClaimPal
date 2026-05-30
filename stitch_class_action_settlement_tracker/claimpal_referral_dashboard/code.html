@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Refer &amp; Earn | ClaimPal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-tertiary-fixed": "#0d1c2e",
+                    "on-background": "#181c1e",
+                    "primary-container": "#1a365d",
+                    "tertiary-container": "#28374a",
+                    "outline": "#74777f",
+                    "background": "#f7fafc",
+                    "outline-variant": "#c4c6cf",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e0e3e5",
+                    "surface-tint": "#455f88",
+                    "secondary": "#006c49",
+                    "primary-fixed": "#d6e3ff",
+                    "on-secondary-container": "#00714d",
+                    "surface-bright": "#f7fafc",
+                    "secondary-container": "#6cf8bb",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface": "#181c1e",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#adc7f7",
+                    "on-tertiary-fixed-variant": "#39485c",
+                    "on-surface-variant": "#43474e",
+                    "primary": "#002045",
+                    "surface-container": "#ebeef0",
+                    "surface-dim": "#d7dadc",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#adc7f7",
+                    "surface": "#f7fafc",
+                    "tertiary": "#122234",
+                    "surface-container-low": "#f1f4f6",
+                    "on-primary-container": "#86a0cd",
+                    "inverse-on-surface": "#eef1f3",
+                    "surface-container-high": "#e5e9eb",
+                    "tertiary-fixed": "#d4e4fc",
+                    "on-primary-fixed": "#001b3c",
+                    "on-tertiary-container": "#91a0b7",
+                    "tertiary-fixed-dim": "#b8c8e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "xs": "8px",
+                    "md": "16px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid #E2E8F0; }
+        .hero-gradient { background: radial-gradient(circle at top right, #1a365d 0%, #002045 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<nav class="w-full top-0 sticky bg-surface dark:bg-background border-b border-outline-variant dark:border-outline z-50 transition-colors duration-200 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">arrow_back</span>
+<h1 class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed">Refer &amp; Earn</h1>
+</div>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">account_balance_wallet</span>
+</div>
+</nav>
+<main class="max-w-5xl mx-auto space-y-lg">
+<!-- Hero Section -->
+<section class="hero-gradient px-margin-mobile py-xl md:py-24 text-white relative overflow-hidden">
+<div class="absolute -right-12 -top-12 opacity-10">
+<span class="material-symbols-outlined !text-[240px]" style="font-variation-settings: 'FILL' 1;">redeem</span>
+</div>
+<div class="relative z-10 space-y-md md:max-w-2xl">
+<div class="inline-flex items-center justify-center bg-secondary-container px-md py-xs rounded-full">
+<span class="material-symbols-outlined text-on-secondary-container mr-xs" style="font-variation-settings: 'FILL' 1;">redeem</span>
+<span class="font-label-lg text-label-lg text-on-secondary-container">LIMITED TIME OFFER</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg leading-tight">Give 1 Month, Get 1 Month. Unlimited.</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed opacity-90">Share ClaimPal with friends. When they file their first class action claim via AI, you BOTH get 1 Month of Plus Premium entirely free (Worth $2.99). Keep inviting, keep stacking!</p>
+</div>
+</section>
+<!-- Privacy Shield Banner -->
+<div class="px-margin-mobile">
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-sm flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+<p class="font-label-lg text-label-lg text-on-surface-variant">100% Privacy Protected. Your friends will never see which legal claims you file or how much money you recover.</p>
+</div>
+</div>
+<!-- Rewards & Share Grid -->
+<div class="px-margin-mobile grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Rewards Tracker -->
+<div class="md:col-span-7 space-y-md">
+<h3 class="font-headline-sm text-headline-sm px-xs">Your Rewards</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Stat Card 1 -->
+<div class="glass-card p-md rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Free Premium Earned</p>
+<div class="flex items-baseline gap-xs mt-xs">
+<span class="font-headline-lg text-headline-lg text-on-secondary-container">3 Months</span>
+</div>
+<div class="mt-md bg-secondary-container/20 px-sm py-xs rounded inline-block">
+<span class="font-label-sm text-label-sm text-on-secondary-container">Saved $8.97 total</span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="glass-card p-md rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Current Membership Renews on</p>
+<p class="font-headline-sm text-headline-sm mt-xs">October 24, 2026</p>
+<div class="mt-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline text-body-sm">event</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Auto-applied rewards</span>
+</div>
+</div>
+</div>
+<!-- Pending Invites -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="px-md py-sm border-b border-outline-variant bg-surface-container-low">
+<p class="font-label-lg text-label-lg">Pending Invites</p>
+</div>
+<ul class="divide-y divide-outline-variant">
+<li class="p-md flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-surface-container-high rounded-full flex items-center justify-center font-bold text-primary">J</div>
+<div>
+<p class="font-body-md text-body-md">j***@outlook.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Joined Oct 12 • Waiting for first claim</p>
+</div>
+</div>
+<span class="bg-surface-container-highest px-sm py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant">Pending</span>
+</li>
+<li class="p-md flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-surface-container-high rounded-full flex items-center justify-center font-bold text-primary">M</div>
+<div>
+<p class="font-body-md text-body-md">m***@gmail.com</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Joined Oct 10 • AI Verification in progress</p>
+</div>
+</div>
+<span class="bg-surface-container-highest px-sm py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant">Processing</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Share Panel -->
+<div class="md:col-span-5 space-y-md">
+<h3 class="font-headline-sm text-headline-sm px-xs">Share &amp; Invite</h3>
+<div class="glass-card p-md rounded-xl space-y-lg">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant">Your Unique Invite Link</label>
+<div class="flex items-center gap-xs p-xs border border-outline rounded-lg bg-surface-container-low">
+<span class="font-body-md text-body-md px-sm text-primary flex-1 truncate">claimpal.com/join/user882</span>
+<button class="bg-primary text-white px-md py-sm rounded-lg font-label-lg hover:bg-primary-container transition-colors active:scale-95" onclick="this.innerHTML='Copied!'">Copy Link</button>
+</div>
+</div>
+<div class="space-y-sm">
+<p class="font-label-lg text-label-lg text-on-surface-variant text-center">Share via social apps</p>
+<div class="flex justify-between items-center px-sm">
+<div class="flex flex-col items-center gap-xs group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white group-hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined !text-3xl">chat</span>
+</div>
+<span class="font-label-sm text-label-sm">iMessage</span>
+</div>
+<div class="flex flex-col items-center gap-xs group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined !text-3xl">sms</span>
+</div>
+<span class="font-label-sm text-label-sm">WhatsApp</span>
+</div>
+<div class="flex flex-col items-center gap-xs group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white group-hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined !text-3xl">send</span>
+</div>
+<span class="font-label-sm text-label-sm">Messenger</span>
+</div>
+<div class="flex flex-col items-center gap-xs group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-black flex items-center justify-center text-white group-hover:opacity-80 transition-opacity">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+</div>
+<span class="font-label-sm text-label-sm">X</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-md rounded-lg border border-primary/10">
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<div class="space-y-xs">
+<p class="font-label-lg text-label-lg text-primary">AI Matching Power</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">We've identified 12 of your contacts who may be eligible for recent settlements like the Meta or T-Mobile data breaches.</p>
+<button class="text-primary font-label-lg underline decoration-2 underline-offset-4">Sync Contacts</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Illustration / Background image -->
+<div class="px-margin-mobile pb-xl">
+<div class="rounded-2xl overflow-hidden h-64 relative bg-surface-container">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-50" data-alt="A clean, professional lifestyle photograph of two diverse colleagues in a bright, modern corporate office smiling at a smartphone together. The environment is filled with natural daylight and minimalist architectural features in soft blues and whites. The mood is collaborative and optimistic, reflecting financial empowerment and professional trust in a fintech setting." src="https://lh3.googleusercontent.com/aida/ADBb0ug8VNscONUGhrvKEXLlikmTPPizLx7NZ0Rk18W-gEAevUuTsDgaHMrHBN31vzSccXE8WVQligmJ18-DRpcawghQZq4h3MA_TQ738wZ7U4RfOmWTJiTW35zc75urA-UnwjVigah3YpmrAKWux1q2N6kkEJHm2-jIslRLB_LMBvYivZxMRH8DuJG0BWeKzFIhJL2MMNIWQg4yZWuu39G9YnliTMlhRvvULMug4w2rkglW_2jLZfKmeEHWoA"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center p-xl text-center">
+<h4 class="font-headline-md text-headline-md text-primary mb-xs">Better Together</h4>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg">When you invite friends, you strengthen the ClaimPal community, helping us fight for more settlements on behalf of consumers everywhere.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(26,54,93,0.05)]">
+<div class="flex justify-around items-center h-20 px-4 w-full">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-label-sm text-label-sm">Claims</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">redeem</span>
+<span class="font-label-sm text-label-sm">Rewards</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</div>
+</nav>
+<script>
+        // Micro-interaction for Copy Link
+        const copyBtn = document.querySelector('button[onclick]');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                setTimeout(() => {
+                    copyBtn.innerHTML = 'Copy Link';
+                }, 2000);
+            });
+        }
+    </script>
+</body></html>

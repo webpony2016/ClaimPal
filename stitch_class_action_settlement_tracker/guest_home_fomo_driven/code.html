@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Legal Ledger - Claim Your Share</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f1f4f6",
+                    "on-primary-fixed": "#001b3c",
+                    "tertiary-container": "#28374a",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#181c1e",
+                    "on-tertiary-fixed-variant": "#39485c",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface": "#181c1e",
+                    "surface-tint": "#455f88",
+                    "outline-variant": "#c4c6cf",
+                    "on-secondary-fixed-variant": "#005236",
+                    "tertiary": "#122234",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e5e9eb",
+                    "surface-container": "#ebeef0",
+                    "secondary-fixed-dim": "#4edea3",
+                    "error": "#ba1a1a",
+                    "background": "#f7fafc",
+                    "secondary": "#006c49",
+                    "on-tertiary-fixed": "#0d1c2e",
+                    "on-primary-container": "#86a0cd",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7fafc",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "primary-container": "#1a365d",
+                    "on-secondary-container": "#00714d",
+                    "on-tertiary-container": "#91a0b7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary": "#002045",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#adc7f7",
+                    "outline": "#74777f",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "tertiary-fixed-dim": "#b8c8e0",
+                    "on-secondary-fixed": "#002113",
+                    "secondary-fixed": "#6ffbbe",
+                    "inverse-on-surface": "#eef1f3",
+                    "surface-dim": "#d7dadc",
+                    "tertiary-fixed": "#d4e4fc",
+                    "primary-fixed": "#d6e3ff",
+                    "surface-bright": "#f7fafc",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#adc7f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "sm": "12px",
+                    "base": "4px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "xs": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fomo-gradient {
+            background: linear-gradient(135deg, #1a365d 0%, #ba1a1a 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface mb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline z-50 flex items-center justify-between px-margin-mobile">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-size: 24px;">gavel</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">Legal Ledger</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-label-lg font-label-lg text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors p-xs rounded">Log In</button>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant">notifications</span>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile max-w-4xl mx-auto">
+<!-- Hero Section: FOMO Alert -->
+<section class="mt-md mb-xl">
+<div class="fomo-gradient rounded-xl p-lg text-white shadow-xl relative overflow-hidden">
+<!-- Decorative Elements -->
+<div class="absolute top-[-20%] right-[-10%] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-xs">
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-label-lg font-label-lg uppercase tracking-widest text-white/80">Claim Opportunity Alert</span>
+</div>
+<h2 class="text-headline-lg font-headline-lg leading-tight">You missed an estimated $450 in the last 3 months! 💔</h2>
+<p class="text-body-lg font-body-lg text-white/90 mt-sm">There is still <span class="font-bold text-secondary-fixed">$1,200</span> available for you to claim this month.</p>
+<button class="mt-lg w-fit px-xl py-md bg-white text-primary font-bold rounded-lg shadow-lg hover:scale-[0.98] transition-all duration-200">
+                        Check My Eligibility Now
+                    </button>
+</div>
+</div>
+</section>
+<!-- Search / Filter Area -->
+<div class="flex items-center justify-between mb-md">
+<h3 class="text-headline-sm font-headline-sm text-primary">Discover Claims</h3>
+<button class="flex items-center gap-xs text-on-surface-variant text-label-lg font-label-lg px-md py-xs bg-surface-container-low border border-outline-variant rounded">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                Filters
+            </button>
+</div>
+<!-- Claims List -->
+<div class="space-y-md">
+<!-- Active Claim Card 1 -->
+<div class="bg-white border border-outline-variant rounded-lg p-md hover:border-primary transition-colors cursor-pointer group shadow-sm">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-xs">
+<span class="bg-secondary/10 text-secondary text-label-sm font-label-sm px-xs py-base rounded uppercase">Active Settlement</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Updated 2h ago</span>
+</div>
+<div class="text-right">
+<p class="text-headline-sm font-headline-sm text-secondary">$350.00</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Est. Payout</p>
+</div>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-primary mb-xs">TechGiant Data Breach 2023</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">Class action lawsuit regarding unauthorized access to user personal identification records and financial data between 2021-2023.</p>
+<div class="mt-md pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">history</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Deadline: Dec 15, 2024</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Active Claim Card 2 -->
+<div class="bg-white border border-outline-variant rounded-lg p-md hover:border-primary transition-colors cursor-pointer group shadow-sm">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-xs">
+<span class="bg-secondary/10 text-secondary text-label-sm font-label-sm px-xs py-base rounded uppercase">High Value</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">New Opportunity</span>
+</div>
+<div class="text-right">
+<p class="text-headline-sm font-headline-sm text-secondary">$850.00</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Est. Payout</p>
+</div>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-primary mb-xs">AutoFinance Overcharge Settlement</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">Consumers who financed vehicles through National Auto between 2018-2022 may be eligible for reimbursement of excessive service fees.</p>
+<div class="mt-md pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">history</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Deadline: Jan 30, 2025</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Expired Claim Card (Muted Grayscale) -->
+<div class="bg-surface-container-low border border-outline-variant/50 rounded-lg p-md grayscale opacity-70 relative overflow-hidden">
+<!-- Missed Label Overlay -->
+<div class="absolute top-4 right-4 rotate-12 border-2 border-error text-error font-bold px-md py-xs text-label-lg rounded uppercase">
+                    Missed Payout
+                </div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-xs">
+<span class="bg-outline text-on-surface-variant text-label-sm font-label-sm px-xs py-base rounded uppercase">Expired</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm italic">You were likely eligible</span>
+</div>
+<div class="text-right">
+<p class="text-headline-sm font-headline-sm text-outline">$125.00</p>
+<p class="text-label-sm font-label-sm text-outline">Lost Value</p>
+</div>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-outline mb-xs">FastFood Receipt Privacy Case</h4>
+<p class="text-body-sm font-body-sm text-outline line-clamp-2">Settlement regarding full credit card numbers printed on customer receipts at various franchise locations nationwide.</p>
+<div class="mt-md pt-md border-t border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">block</span>
+<span class="text-label-sm font-label-sm text-outline">Deadline passed: Oct 1, 2024</span>
+</div>
+</div>
+</div>
+<!-- Expired Claim Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant/50 rounded-lg p-md grayscale opacity-70 relative overflow-hidden">
+<div class="absolute top-4 right-4 rotate-12 border-2 border-error text-error font-bold px-md py-xs text-label-lg rounded uppercase">
+                    Missed Payout
+                </div>
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-xs">
+<span class="bg-outline text-on-surface-variant text-label-sm font-label-sm px-xs py-base rounded uppercase">Expired</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm italic">3.2M claimants paid</span>
+</div>
+<div class="text-right">
+<p class="text-headline-sm font-headline-sm text-outline">$325.00</p>
+<p class="text-label-sm font-label-sm text-outline">Lost Value</p>
+</div>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-outline mb-xs">CloudStorage Subscription Refund</h4>
+<p class="text-body-sm font-body-sm text-outline line-clamp-2">Lawsuit concerning "hidden" automatic renewal practices and difficulty of cancellation for premium tier users.</p>
+<div class="mt-md pt-md border-t border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">block</span>
+<span class="text-label-sm font-label-sm text-outline">Deadline passed: Sept 15, 2024</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action Banner -->
+<div class="mt-xl p-lg bg-primary-container text-white rounded-xl text-center space-y-md">
+<h3 class="text-headline-md font-headline-md">Don't lose another dollar.</h3>
+<p class="text-body-md font-body-md text-on-primary-container max-w-md mx-auto">Connect your email and banking securely to let our AI scan for settlements you're already eligible for.</p>
+<button class="w-full md:w-auto px-xl py-md bg-secondary text-white font-bold rounded-lg hover:bg-secondary-fixed-dim transition-colors">
+                Connect and Scan My Accounts
+            </button>
+<p class="text-label-sm font-label-sm text-on-primary-container opacity-70">256-bit Bank Grade Encryption • Trusted by 500k+ Users</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-xs bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex-1 py-xs" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-sm font-label-sm">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-bold flex-1 py-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex-1 py-xs" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="text-label-sm font-label-sm">My Claims</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex-1 py-xs" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.cursor-pointer').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.1s ease';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

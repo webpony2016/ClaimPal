@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#b8c8e0",
+                    "on-primary-container": "#86a0cd",
+                    "background": "#f7fafc",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-tint": "#455f88",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#006c49",
+                    "primary": "#002045",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f1f4f6",
+                    "outline-variant": "#c4c6cf",
+                    "on-tertiary-container": "#91a0b7",
+                    "surface-container-high": "#e5e9eb",
+                    "primary-container": "#1a365d",
+                    "on-secondary-container": "#00714d",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7fafc",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-container": "#ebeef0",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-background": "#181c1e",
+                    "inverse-surface": "#2d3133",
+                    "tertiary": "#122234",
+                    "tertiary-fixed": "#d4e4fc",
+                    "primary-fixed-dim": "#adc7f7",
+                    "inverse-on-surface": "#eef1f3",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#39485c",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-dim": "#d7dadc",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002113",
+                    "on-error-container": "#93000a",
+                    "outline": "#74777f",
+                    "on-surface": "#181c1e",
+                    "surface": "#f7fafc",
+                    "on-tertiary-fixed": "#0d1c2e",
+                    "on-surface-variant": "#43474e",
+                    "secondary-container": "#6cf8bb",
+                    "inverse-primary": "#adc7f7",
+                    "tertiary-container": "#28374a",
+                    "on-primary-fixed": "#001b3c",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "xs": "8px",
+                    "md": "16px",
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "lg": "24px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 flex justify-between items-center px-margin-mobile h-16 w-full bg-surface border-b border-outline-variant transition-colors duration-200 ease-in-out">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary">Refer &amp; Earn</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-sm space-y-lg">
+<!-- Hero Section -->
+<section class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary-container via-[#1e447a] to-[#005236] p-lg text-white shadow-lg">
+<div class="relative z-10 flex flex-col gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">redeem</span>
+<span class="font-label-lg text-label-lg tracking-widest text-secondary-fixed uppercase">Unlimited Rewards</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg leading-tight">Give $10, Get $10. Unlimited times.</h2>
+<p class="font-body-md text-body-md text-primary-fixed opacity-90 max-w-[90%]">
+                    Share the app with friends. When they file their first claim via AI, you BOTH get $10 cash instantly. No limits, keep earning!
+                </p>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]">loyalty</span>
+</div>
+</section>
+<!-- Earnings Dashboard -->
+<section class="bg-white border border-outline-variant rounded-xl p-md shadow-sm glow-emerald">
+<div class="flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-base">Total Earned</p>
+<h3 class="font-headline-lg text-headline-lg text-on-secondary-container">$120.00</h3>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-base">Pending</p>
+<p class="font-headline-sm text-headline-sm text-outline">$30.00</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-white py-md rounded-lg font-label-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+                    Withdraw to PayPal / Bank
+                </button>
+</div>
+</section>
+<!-- Privacy & Trust Badge -->
+<section class="flex items-center gap-md p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-bold text-on-surface">100% Privacy Protected.</span> Your friends will NEVER see which lawsuits you file or how much money you claim.
+            </p>
+</section>
+<!-- Sharing Section -->
+<section class="space-y-md">
+<h4 class="font-label-lg text-label-lg text-primary px-base">Your Referral Link</h4>
+<div class="bg-white border border-outline-variant rounded-xl p-sm flex items-center justify-between gap-sm">
+<span class="font-body-md text-body-md text-primary truncate pl-xs">legal-ledger.com/join/user882</span>
+<button class="bg-surface-container-high text-primary px-md py-sm rounded-lg font-label-lg hover:bg-surface-variant transition-colors" onclick="copyToClipboard()">
+                    Copy Link
+                </button>
+</div>
+<div class="flex justify-around items-center pt-sm">
+<div class="flex flex-col items-center gap-xs">
+<div class="w-12 h-12 rounded-full bg-[#007AFF] flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">textsms</span>
+</div>
+<span class="font-label-sm text-label-sm">iMessage</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<span class="font-label-sm text-label-sm">WhatsApp</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-12 h-12 rounded-full bg-[#0084FF] flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</div>
+<span class="font-label-sm text-label-sm">Messenger</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-12 h-12 rounded-full bg-on-surface-variant flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<span class="font-label-sm text-label-sm">Email</span>
+</div>
+</div>
+</section>
+<!-- Milestone Gamification -->
+<section class="space-y-md pb-8">
+<h4 class="font-label-lg text-label-lg text-primary px-base">Tier Progression</h4>
+<div class="bg-white border border-outline-variant rounded-xl p-md space-y-lg">
+<div class="relative pt-2">
+<div class="flex justify-between mb-xs">
+<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded-full">Level 1</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3 / 5 Friends</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full transition-all duration-1000" style="width: 60%"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-md opacity-80">
+<span class="material-symbols-outlined text-secondary">star_half</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-bold text-on-surface">Invite 5 friends</span> → Get 1 Free Premium Human Audit
+                        </p>
+</div>
+<div class="flex items-center gap-md opacity-50">
+<span class="material-symbols-outlined text-primary">military_tech</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<span class="font-bold text-on-surface">Invite 20 friends</span> → Gold Partner (Earn $15/invite)
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-20 px-4 w-full bg-surface dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(26,54,93,0.05)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:scale-95 transition-transform hover:opacity-80 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:scale-95 transition-transform hover:opacity-80 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-sm text-label-sm">Claims</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-transform hover:opacity-80 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="redeem" style="font-variation-settings: 'FILL' 1;">redeem</span>
+<span class="font-label-sm text-label-sm">Rewards</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:scale-95 transition-transform hover:opacity-80 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        function copyToClipboard() {
+            const link = "legal-ledger.com/join/user882";
+            navigator.clipboard.writeText(link).then(() => {
+                const btn = event.currentTarget;
+                const originalText = btn.innerText;
+                btn.innerText = "Copied!";
+                btn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                }, 2000);
+            });
+        }
+    </script>
+</body></html>

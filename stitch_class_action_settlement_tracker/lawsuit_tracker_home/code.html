@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Legal Ledger - Claim Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#91a0b7",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-container": "#28374a",
+                    "surface-container-high": "#e5e9eb",
+                    "primary": "#002045",
+                    "on-primary-container": "#86a0cd",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#001b3c",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "on-tertiary-fixed": "#0d1c2e",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary-container": "#00714d",
+                    "secondary-container": "#6cf8bb",
+                    "on-secondary-fixed": "#002113",
+                    "surface-dim": "#d7dadc",
+                    "surface": "#f7fafc",
+                    "primary-container": "#1a365d",
+                    "primary-fixed": "#d6e3ff",
+                    "surface-container": "#ebeef0",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#181c1e",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#d4e4fc",
+                    "tertiary-fixed-dim": "#b8c8e0",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-primary": "#adc7f7",
+                    "tertiary": "#122234",
+                    "outline-variant": "#c4c6cf",
+                    "inverse-on-surface": "#eef1f3",
+                    "secondary": "#006c49",
+                    "background": "#f7fafc",
+                    "on-surface": "#181c1e",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#adc7f7",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed-variant": "#39485c",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-bright": "#f7fafc",
+                    "surface-container-low": "#f1f4f6",
+                    "on-surface-variant": "#43474e",
+                    "inverse-surface": "#2d3133",
+                    "surface-tint": "#455f88",
+                    "outline": "#74777f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "lg": "24px",
+                    "gutter-mobile": "12px",
+                    "margin-mobile": "16px",
+                    "xs": "8px",
+                    "md": "16px",
+                    "sm": "12px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .active-nav-item {
+            transform: scale(0.95);
+            transition: transform 0.15s;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar Execution -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin-mobile w-full h-16 sticky top-0 z-40">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-size: 24px;">gavel</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">Legal Ledger</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant">notifications</span>
+</button>
+</header>
+<!-- Search Section -->
+<section class="px-margin-mobile pt-md bg-surface">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface-container-low border border-outline-variant rounded-xl focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-all outline-none" placeholder="Search class actions..." type="text"/>
+</div>
+</section>
+<!-- Control Bar -->
+<section class="px-margin-mobile py-md flex items-center justify-between bg-surface">
+<div class="flex items-center gap-xs">
+<button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-outline-variant" id="toggleSwitch" onclick="toggleExpired(this)" role="switch">
+<span aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+<label class="text-label-lg font-label-lg text-on-surface-variant">Show Expired</label>
+</div>
+<button class="flex items-center gap-xs px-sm py-xs bg-surface-container border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="text-label-lg font-label-lg text-primary">Timeframe</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</section>
+<!-- Mixed Feed List -->
+<main class="flex-grow px-margin-mobile pb-24 space-y-md">
+<!-- Card 1: Active -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Facebook logo" class="w-full h-full object-cover" data-alt="A clean, corporate tech logo representing a social media giant, presented in a minimalist professional style. The icon is framed within a soft blue square container, emphasizing institutional authority and modern digital trust within a light-mode legal application interface." src="https://lh3.googleusercontent.com/aida/ADBb0ujZ0-NHvF26irBgGKq3h7uEi9Ha5_LV1wM8BbR6aZo1MB1-UE_jBgh4RJjokS8MzI5Yzmqd3uvqPRUaW7KxZS8IV4_tCtYv09QvHPx5RdFVNtfuaZphTqHHwC6GFz-ecXz1dr1sJzuBtuZLo1aSNjprlanwsRG_XmyRK8jXmkWGlrwqdwJ6YNOgAiVoecR2g1IkXgBYAOWa21raHeT32eRadNNjtFZWU_uMSHcYLfahGYiSNZDHYt7t5Q"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Facebook Data Privacy Settlement</h3>
+<div class="flex items-center gap-xs mt-1">
+<span class="inline-flex items-center px-xs py-[2px] rounded-full text-label-sm font-label-sm bg-[#10B981]/10 text-[#10B981]">
+<span class="material-symbols-outlined text-[12px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Active
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-xs">
+<div>
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Estimated Payout</p>
+<p class="text-headline-md font-headline-md text-secondary">Up to $350</p>
+</div>
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95 duration-200">
+                    File Claim
+                </button>
+</div>
+</div>
+<!-- Card 2: Expired -->
+<div class="bg-surface-container-high border border-outline-variant rounded-xl p-md flex flex-col gap-sm opacity-60">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center overflow-hidden grayscale">
+<img alt="Capital One logo" class="w-full h-full object-cover" data-alt="A muted, grayscale corporate logo of a financial institution, displayed with reduced prominence and opacity. The design reflects a past legal event, maintaining a professional but inactive aesthetic within a clean, structured list of insurance or legal claims." src="https://lh3.googleusercontent.com/aida/ADBb0ugAA_EG_vSbF1YMhxxaYYPEvywyIpQp6Z96WLQAi612kYpfkiYnxEVDMnPdQzrq5cqFJvArhsgjiBnL1VXiyCuIUV3vq2VHxmY904JwKEYyLW3SdXoUmWO6yymSYejOoOBmNhEO2okXQpqMT2G5mEJFzTAOpLFlX1LZFWnp0KZXpD002A472M_ztP77ZCPBTdhwf2TzgoTOfdZr_4RCLDN2oqLrH70l3rpsexW_SWgpu7V-Zbf9wFhIlQ"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Capital One Data Breach</h3>
+<div class="flex items-center gap-xs mt-1">
+<span class="inline-flex items-center px-xs py-[2px] rounded-full text-label-sm font-label-sm bg-outline/10 text-on-surface-variant">
+                                Expired 12 Days Ago
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-xs">
+<div>
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Final Settlement</p>
+<p class="text-headline-md font-headline-md text-outline">$25.00</p>
+</div>
+<a class="text-primary font-label-lg flex items-center gap-xs hover:underline" href="#">
+                    View Final Verdict
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 3: Active -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container flex items-center justify-center overflow-hidden">
+<img alt="Fitbit logo" class="w-full h-full object-cover" data-alt="A modern healthcare and fitness technology brand logo with a professional, clinical feel. The icon uses a deep navy and white color scheme, emphasizing precision and medical accuracy. It is presented as a sharp, clean graphic suitable for a high-end legal dashboard." src="https://lh3.googleusercontent.com/aida/ADBb0uhX2s3fhqYaNM6Ame8Sj8xUrGMJoh0vgJW-UBN-1T6C7N_1ACvD0_uaIAiU6XpCg1_Bj5sinnrdop2UwBe7IcIoyiQFsmv4SA4Gnv8895QTHth4gqSPuWLC8rJzs7E4mIl6Vc0HkRF4koGP1lsPjmsxwxA2Ft7MgxCLhSNjj7nT4fEk7iEvADdc0kdwbVswzjhlwyMF1W4QQg5YqkG6uhpxTqML5cFLwEKVv2nnmlnIcc7GRIA1tloP8w"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Fitbit Heart Rate Accuracy</h3>
+<div class="flex items-center gap-xs mt-1">
+<span class="inline-flex items-center px-xs py-[2px] rounded-full text-label-sm font-label-sm bg-[#10B981]/10 text-[#10B981]">
+<span class="material-symbols-outlined text-[12px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Active
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-xs">
+<div>
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Estimated Payout</p>
+<p class="text-headline-md font-headline-md text-secondary">Up to $150</p>
+</div>
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95 duration-200">
+                    File Claim
+                </button>
+</div>
+</div>
+<!-- Card 4: Expired -->
+<div class="bg-surface-container-high border border-outline-variant rounded-xl p-md flex flex-col gap-sm opacity-60">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center overflow-hidden grayscale">
+<img alt="Equifax logo" class="w-full h-full object-cover" data-alt="A professional credit reporting agency logo presented in a muted, desaturated style to indicate an expired status. The layout is clean and minimalist, following the corporate aesthetic of a high-authority legal monitoring application with soft lighting and professional blue accents." src="https://lh3.googleusercontent.com/aida/ADBb0ujteE-i-WT-SrdSUendKnzEBdWtNHpo1ztQlYoqRmB98md3z2p5aCU_M_Lq_2g7GZV2Bqs86ZTGBkCPaxNS8e2HjTY7HbzDhXeD6udv86bXcl-5muGxpYTK_RvsXHi8EilVOsLv1HWlCSKEgsXdvd2fLyubsVcp5r7c5v2Z4QJlECv9X27muuwsLrHXrGKeNVB0ufTAy_5bD06TfBTT5V7RfjTYauWjxMvTB2th58nmi8oVXVCpUJvPVA"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Equifax Data Settlement</h3>
+<div class="flex items-center gap-xs mt-1">
+<span class="inline-flex items-center px-xs py-[2px] rounded-full text-label-sm font-label-sm bg-outline/10 text-on-surface-variant">
+                                Expired 45 Days Ago
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-xs">
+<div>
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Final Settlement</p>
+<p class="text-headline-md font-headline-md text-outline">Up to $125</p>
+</div>
+<a class="text-primary font-label-lg flex items-center gap-xs hover:underline" href="#">
+                    View Final Verdict
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Execution -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-xs bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-bold active-nav-item" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-label-sm font-label-sm">Tracker</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="text-label-sm font-label-sm">My Claims</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        function toggleExpired(el) {
+            const isChecked = el.getAttribute('aria-checked') === 'true';
+            const circle = el.querySelector('span');
+            
+            if (isChecked) {
+                el.setAttribute('aria-checked', 'false');
+                el.classList.remove('bg-secondary');
+                el.classList.add('bg-outline-variant');
+                circle.classList.remove('translate-x-5');
+                circle.classList.add('translate-x-0');
+            } else {
+                el.setAttribute('aria-checked', 'true');
+                el.classList.remove('bg-outline-variant');
+                el.classList.add('bg-secondary');
+                circle.classList.remove('translate-x-0');
+                circle.classList.add('translate-x-5');
+            }
+        }
+    </script>
+</body></html>

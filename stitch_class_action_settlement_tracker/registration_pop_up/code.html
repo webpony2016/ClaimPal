@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Filing - Secure Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#f1f4f6",
+            "on-primary-fixed": "#001b3c",
+            "tertiary-container": "#28374a",
+            "on-secondary": "#ffffff",
+            "on-background": "#181c1e",
+            "on-tertiary-fixed-variant": "#39485c",
+            "surface-variant": "#e0e3e5",
+            "secondary-container": "#6cf8bb",
+            "on-surface": "#181c1e",
+            "surface-tint": "#455f88",
+            "outline-variant": "#c4c6cf",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary": "#122234",
+            "on-error": "#ffffff",
+            "surface-container-high": "#e5e9eb",
+            "surface-container": "#ebeef0",
+            "secondary-fixed-dim": "#4edea3",
+            "error": "#ba1a1a",
+            "background": "#f7fafc",
+            "secondary": "#006c49",
+            "on-tertiary-fixed": "#0d1c2e",
+            "on-primary-container": "#86a0cd",
+            "surface-container-highest": "#e0e3e5",
+            "inverse-surface": "#2d3133",
+            "surface": "#f7fafc",
+            "on-primary-fixed-variant": "#2d476f",
+            "primary-container": "#1a365d",
+            "on-secondary-container": "#00714d",
+            "on-tertiary-container": "#91a0b7",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "primary": "#002045",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#adc7f7",
+            "outline": "#74777f",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#43474e",
+            "tertiary-fixed-dim": "#b8c8e0",
+            "on-secondary-fixed": "#002113",
+            "secondary-fixed": "#6ffbbe",
+            "inverse-on-surface": "#eef1f3",
+            "surface-dim": "#d7dadc",
+            "tertiary-fixed": "#d4e4fc",
+            "primary-fixed": "#d6e3ff",
+            "surface-bright": "#f7fafc",
+            "on-error-container": "#93000a",
+            "inverse-primary": "#adc7f7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "xl": "32px",
+            "sm": "12px",
+            "base": "4px",
+            "gutter-mobile": "12px",
+            "lg": "24px",
+            "md": "16px",
+            "xs": "8px",
+            "margin-mobile": "16px"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Inter"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .modal-overlay {
+      background: rgba(0, 32, 69, 0.4);
+      backdrop-filter: blur(8px);
+    }
+    .glowing-gift {
+      box-shadow: 0 0 20px rgba(108, 248, 187, 0.4);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-slide-up {
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden">
+<!-- Background "Home Screen" Mockup -->
+<div class="relative min-h-screen p-margin-mobile md:p-xl space-y-lg opacity-40 select-none pointer-events-none">
+<!-- TopAppBar Mockup -->
+<header class="flex justify-between items-center w-full h-16 border-b border-outline-variant">
+<span class="font-headline-sm text-primary tracking-tight">Smart Filing</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined">person</span>
+</div>
+</header>
+<!-- Main Content Content Mockup (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="md:col-span-2 bg-white border border-outline-variant p-lg rounded-xl h-64 flex flex-col justify-end">
+<div class="h-4 w-1/3 bg-surface-container-high rounded mb-base"></div>
+<div class="h-8 w-2/3 bg-surface-container-highest rounded"></div>
+</div>
+<div class="bg-white border border-outline-variant p-lg rounded-xl h-64 flex flex-col space-y-md">
+<div class="h-full bg-surface-container-low rounded"></div>
+</div>
+<div class="bg-white border border-outline-variant p-lg rounded-xl h-48"></div>
+<div class="bg-white border border-outline-variant p-lg rounded-xl h-48"></div>
+<div class="bg-white border border-outline-variant p-lg rounded-xl h-48"></div>
+</div>
+</div>
+<!-- Registration Modal Overlay -->
+<div class="fixed inset-0 z-50 modal-overlay flex items-end md:items-center justify-center">
+<!-- Bottom Sheet / Modal Container -->
+<div class="bg-surface w-full max-w-lg rounded-t-xl md:rounded-xl p-lg md:p-xl shadow-md border border-outline-variant animate-slide-up mx-auto relative overflow-hidden">
+<!-- Drag Handle for Mobile -->
+<div class="md:hidden w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-lg"></div>
+<!-- Content Header -->
+<div class="text-center md:text-left mb-xl">
+<h1 class="font-headline-md text-headline-md text-primary mb-xs">
+          Create an Account to View Details
+        </h1>
+<p class="font-body-md text-on-surface-variant">
+          Access full case documents and claim eligibility.
+        </p>
+</div>
+<!-- Glowing Reward Highlight -->
+<div class="glowing-gift bg-secondary-container rounded-lg p-md mb-xl flex items-center gap-md border border-on-secondary-fixed-variant">
+<div class="bg-on-secondary-fixed-variant text-white p-xs rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">card_giftcard</span>
+</div>
+<div>
+<span class="font-label-lg text-on-secondary-fixed-variant block">Includes 1 FREE AI Smart-Filing Credit</span>
+<p class="font-body-sm text-on-secondary-fixed-variant opacity-80">(Save time &amp; hassle)</p>
+</div>
+</div>
+<!-- Form Section -->
+<form action="#" class="space-y-lg" onsubmit="event.preventDefault();">
+<div class="space-y-xs">
+<label class="font-label-lg text-primary block" for="email">Email Address</label>
+<input class="w-full px-md py-sm border border-outline rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="email" placeholder="name@example.com" type="email"/>
+</div>
+<button class="w-full bg-primary-container text-white py-md rounded-xl font-label-lg flex items-center justify-center gap-xs hover:bg-primary transition-all active:scale-[0.98]">
+          Continue
+          <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+<!-- Security Social Proof / Footer -->
+<div class="mt-xl pt-lg border-t border-outline-variant flex flex-col items-center gap-sm">
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-sm">lock</span>
+          Bank-grade encryption for your documents
+        </div>
+<p class="font-label-sm text-on-surface-variant text-center opacity-60 max-w-xs leading-relaxed">
+          Always Free to Browse. We only take a 10% fee IF you successfully win your payout.
+        </p>
+</div>
+<!-- Subtle Branding Background Accent -->
+<div class="absolute -right-16 -top-16 w-32 h-32 bg-primary-container opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+</div>
+<script>
+    // Micro-interaction for input focus
+    const input = document.getElementById('email');
+    const container = input.closest('div');
+    
+    input.addEventListener('focus', () => {
+      container.style.transform = 'translateY(-2px)';
+      container.style.transition = 'transform 0.2s ease';
+    });
+    
+    input.addEventListener('blur', () => {
+      container.style.transform = 'translateY(0)';
+    });
+
+    // Close on overlay click (desktop only)
+    document.querySelector('.modal-overlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget && window.innerWidth > 768) {
+        // In a real app, logic to close would go here
+        console.log('Close request');
+      }
+    });
+  </script>
+</body></html>

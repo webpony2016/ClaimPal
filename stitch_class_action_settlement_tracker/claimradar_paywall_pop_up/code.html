@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ClaimRadar | Upgrade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#122234",
+                    "inverse-primary": "#adc7f7",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#0d1c2e",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "secondary": "#006c49",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#1a365d",
+                    "surface-container": "#ebeef0",
+                    "on-primary-fixed": "#001b3c",
+                    "background": "#f7fafc",
+                    "tertiary-fixed-dim": "#b8c8e0",
+                    "surface": "#f7fafc",
+                    "on-secondary-fixed": "#002113",
+                    "tertiary-container": "#28374a",
+                    "primary-fixed-dim": "#adc7f7",
+                    "surface-dim": "#d7dadc",
+                    "outline-variant": "#c4c6cf",
+                    "secondary-container": "#6cf8bb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary": "#002045",
+                    "on-background": "#181c1e",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "inverse-on-surface": "#eef1f3",
+                    "surface-bright": "#f7fafc",
+                    "on-surface": "#181c1e",
+                    "on-secondary-container": "#00714d",
+                    "surface-container-high": "#e5e9eb",
+                    "on-tertiary-fixed-variant": "#39485c",
+                    "surface-tint": "#455f88",
+                    "on-primary-container": "#86a0cd",
+                    "inverse-surface": "#2d3133",
+                    "outline": "#74777f",
+                    "secondary-fixed": "#6ffbbe",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#d4e4fc",
+                    "surface-container-low": "#f1f4f6",
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary-container": "#91a0b7",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed-variant": "#005236"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "12px",
+                    "gutter-mobile": "12px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-overlay {
+            background: rgba(0, 32, 69, 0.4);
+            backdrop-filter: blur(8px);
+        }
+        .bottom-sheet-transition {
+            transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-active {
+            transform: translateX(calc(100% - 4px));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-surface min-h-screen overflow-hidden">
+<!-- BACKGROUND CONTEXT (SIMULATED HOME SCREEN) -->
+<div class="fixed inset-0 p-margin-mobile">
+<header class="flex items-center justify-between py-xs mb-lg">
+<span class="font-headline-md text-headline-md text-primary">ClaimRadar</span>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</header>
+<div class="space-y-lg opacity-40 grayscale pointer-events-none">
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-lg text-label-lg text-secondary">SUBMITTED</p>
+<h3 class="font-headline-sm text-headline-sm">Facebook Data Settlement</h3>
+</div>
+<span class="text-primary font-bold">$142.50</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-lg text-label-lg text-secondary">SUBMITTED</p>
+<h3 class="font-headline-sm text-headline-sm">HealthCare Leak Class Action</h3>
+</div>
+<span class="text-primary font-bold">$105.00</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-lg border-dashed border-2">
+<div class="flex justify-between items-center">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">PENDING UNLOCK</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant">Equifax Privacy Breach</h3>
+</div>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 glass-overlay z-40 flex items-end" id="overlay">
+<!-- BOTTOM SHEET -->
+<div class="w-full bg-surface-container-lowest rounded-t-xl shadow-2xl max-h-[839px] overflow-y-auto bottom-sheet-transition translate-y-0" id="bottom-sheet">
+<!-- Handle -->
+<div class="flex justify-center pt-sm pb-xs">
+<div class="w-10 h-1 bg-outline-variant rounded-full"></div>
+</div>
+<div class="px-margin-mobile pb-xl">
+<!-- Header Section -->
+<div class="text-center mb-lg pt-xs">
+<div class="inline-flex items-center justify-center w-14 h-14 bg-secondary-container rounded-full mb-md animate-bounce">
+<span class="text-[32px]">🎉</span>
+</div>
+<p class="font-label-lg text-label-lg text-secondary mb-base">2 Free Claims Submitted!</p>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm leading-tight">Don't Miss Out on Your Next Payout.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        You are currently unlocking a settlement worth up to <span class="font-bold text-on-surface">$250</span>. Upgrade now to file this claim instantly.
+                    </p>
+</div>
+<!-- Billing Toggle -->
+<div class="flex flex-col items-center mb-lg">
+<div class="flex items-center gap-md p-base bg-surface-container rounded-full border border-outline-variant">
+<button class="px-lg py-xs rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container-lowest shadow-sm text-primary" id="bill-monthly" onclick="toggleBilling('monthly')">
+                            Bill Monthly
+                        </button>
+<button class="px-lg py-xs rounded-full font-label-lg text-label-lg transition-all duration-200 text-on-surface-variant" id="bill-yearly" onclick="toggleBilling('yearly')">
+                            Bill Yearly <span class="text-secondary">(Save 30%)</span>
+</button>
+</div>
+</div>
+<!-- Subscription Selector -->
+<div class="grid grid-cols-1 gap-md mb-xl">
+<!-- Plus Plan -->
+<div class="relative border-2 border-outline-variant rounded-lg p-md cursor-pointer transition-all hover:border-primary" id="plus-card" onclick="selectPlan('plus')">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Plus Plan</h4>
+<div class="flex items-baseline gap-base mt-base">
+<span class="text-headline-md font-bold text-primary" id="plus-price">$2.99</span>
+<span class="text-body-sm text-on-surface-variant" id="plus-period">/mo</span>
+</div>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-base rounded-full font-label-sm text-label-sm">Best Value</span>
+</div>
+<ul class="space-y-xs">
+<li class="flex items-center gap-xs font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                5 AI claims / month
+                            </li>
+<li class="flex items-center gap-xs font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Priority Push Alerts
+                            </li>
+</ul>
+</div>
+<!-- Pro Plan -->
+<div class="relative border-2 border-primary bg-primary-container/[0.03] rounded-lg p-md cursor-pointer transition-all" id="pro-card" onclick="selectPlan('pro')">
+<div class="absolute top-md right-md" id="pro-check">
+<span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="mb-xs">
+<h4 class="font-headline-sm text-headline-sm">Pro Plan</h4>
+<div class="flex items-baseline gap-base mt-base">
+<span class="text-headline-md font-bold text-primary" id="pro-price">$5.99</span>
+<span class="text-body-sm text-on-surface-variant" id="pro-period">/mo</span>
+</div>
+</div>
+<ul class="space-y-xs">
+<li class="flex items-center gap-xs font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                UNLIMITED AI claims
+                            </li>
+<li class="flex items-center gap-xs font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Instant notifications
+                            </li>
+</ul>
+</div>
+</div>
+<!-- Primary CTA -->
+<div class="space-y-md mb-xl">
+<button class="w-full bg-primary text-white py-md rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-sm active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">ios</span>
+                        Subscribe with 1-Click
+                    </button>
+</div>
+<!-- Viral Route -->
+<div class="relative py-md mb-lg">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="bg-surface-container-lowest px-md font-label-lg text-label-lg text-on-surface-variant">OR EARN IT FOR FREE</span>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-md rounded-lg flex items-start gap-md mb-lg">
+<div class="w-12 h-12 bg-tertiary-container rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-tertiary-container">featured_seasonal_and_gifts</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface mb-sm">
+                            Don't want to pay? <span class="font-bold">Invite a friend!</span> When they submit their first claim, BOTH of you get 2 MONTHS of Premium for Free.
+                        </p>
+<button class="text-primary font-bold font-label-lg text-label-lg flex items-center gap-xs hover:underline">
+                            Invite a Friend &amp; Unlock Free Access
+                            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Footer -->
+<div class="text-center px-lg">
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+                        Secure transaction via Apple/Google. Cancel anytime in Settings with 1-click.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- SCRIPTS -->
+<script>
+        let currentBilling = 'monthly';
+        let currentPlan = 'pro';
+
+        function toggleBilling(type) {
+            currentBilling = type;
+            const monthlyBtn = document.getElementById('bill-monthly');
+            const yearlyBtn = document.getElementById('bill-yearly');
+            const plusPrice = document.getElementById('plus-price');
+            const plusPeriod = document.getElementById('plus-period');
+            const proPrice = document.getElementById('pro-price');
+            const proPeriod = document.getElementById('pro-period');
+
+            if (type === 'monthly') {
+                monthlyBtn.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+                monthlyBtn.classList.remove('text-on-surface-variant');
+                yearlyBtn.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+                yearlyBtn.classList.add('text-on-surface-variant');
+                
+                plusPrice.innerText = '$2.99';
+                plusPeriod.innerText = '/mo';
+                proPrice.innerText = '$5.99';
+                proPeriod.innerText = '/mo';
+            } else {
+                yearlyBtn.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+                yearlyBtn.classList.remove('text-on-surface-variant');
+                monthlyBtn.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+                monthlyBtn.classList.add('text-on-surface-variant');
+                
+                plusPrice.innerText = '$19.99';
+                plusPeriod.innerText = '/yr';
+                proPrice.innerText = '$39.99';
+                proPeriod.innerText = '/yr';
+            }
+        }
+
+        function selectPlan(plan) {
+            currentPlan = plan;
+            const plusCard = document.getElementById('plus-card');
+            const proCard = document.getElementById('pro-card');
+            
+            const proCheck = `
+                <div id="pro-check" class="absolute top-md right-md">
+                    <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                </div>`;
+            const plusCheck = `
+                <div id="plus-check" class="absolute top-md right-40">
+                    <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                </div>`;
+
+            // Reset
+            plusCard.classList.remove('border-primary', 'bg-primary-container/[0.03]');
+            plusCard.classList.add('border-outline-variant');
+            proCard.classList.remove('border-primary', 'bg-primary-container/[0.03]');
+            proCard.classList.add('border-outline-variant');
+            
+            const oldProCheck = document.getElementById('pro-check');
+            if(oldProCheck) oldProCheck.remove();
+            const oldPlusCheck = document.getElementById('plus-check');
+            if(oldPlusCheck) oldPlusCheck.remove();
+
+            if (plan === 'plus') {
+                plusCard.classList.add('border-primary', 'bg-primary-container/[0.03]');
+                plusCard.classList.remove('border-outline-variant');
+                plusCard.insertAdjacentHTML('beforeend', plusCheck);
+            } else {
+                proCard.classList.add('border-primary', 'bg-primary-container/[0.03]');
+                proCard.classList.remove('border-outline-variant');
+                proCard.insertAdjacentHTML('beforeend', proCheck);
+            }
+        }
+
+        // Entrance animation
+        window.addEventListener('load', () => {
+            const sheet = document.getElementById('bottom-sheet');
+            sheet.classList.remove('translate-y-full');
+        });
+    </script>
+</body></html>

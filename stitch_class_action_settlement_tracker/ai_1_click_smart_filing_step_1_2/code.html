@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Filing - Claim Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f7fafc",
+            "secondary-fixed-dim": "#4edea3",
+            "tertiary-fixed": "#d4e4fc",
+            "secondary-fixed": "#6ffbbe",
+            "on-tertiary-fixed-variant": "#39485c",
+            "secondary-container": "#6cf8bb",
+            "tertiary-container": "#28374a",
+            "tertiary": "#122234",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#43474e",
+            "on-secondary-fixed-variant": "#005236",
+            "surface-bright": "#f7fafc",
+            "secondary": "#006c49",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#002113",
+            "on-secondary": "#ffffff",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d6e3ff",
+            "on-surface": "#181c1e",
+            "inverse-surface": "#2d3133",
+            "surface-tint": "#455f88",
+            "surface-container": "#ebeef0",
+            "error": "#ba1a1a",
+            "surface-dim": "#d7dadc",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#00714d",
+            "primary-container": "#1a365d",
+            "background": "#f7fafc",
+            "on-primary-fixed-variant": "#2d476f",
+            "on-primary-container": "#86a0cd",
+            "on-tertiary-fixed": "#0d1c2e",
+            "surface-container-highest": "#e0e3e5",
+            "on-primary-fixed": "#001b3c",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#adc7f7",
+            "inverse-on-surface": "#eef1f3",
+            "outline-variant": "#c4c6cf",
+            "outline": "#74777f",
+            "primary": "#002045"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-mobile": "16px",
+            "lg": "24px",
+            "md": "16px",
+            "xl": "32px",
+            "xs": "8px",
+            "sm": "12px",
+            "gutter-mobile": "12px",
+            "base": "4px"
+          },
+          "fontFamily": {
+            "headline-sm": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    .ai-pulse {
+      background: linear-gradient(90deg, #d4e4fc, #adc7f7, #6ffbbe, #d4e4fc);
+      background-size: 300% 100%;
+      animation: pulse-gradient 6s ease infinite;
+      position: relative;
+    }
+    .ai-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, #adc7f7, #b8c8e0, #6ffbbe);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0.5;
+      animation: pulse-glow 4s ease-in-out infinite alternate;
+    }
+    @keyframes pulse-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes pulse-glow {
+      0% { transform: scale(1); opacity: 0.3; filter: blur(4px); }
+      100% { transform: scale(1.08); opacity: 0.6; filter: blur(8px); }
+    }
+    .glass-morphism {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .drawer-shadow {
+      box-shadow: 0px -10px 40px rgba(0, 32, 69, 0.08);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-hidden">
+<!-- Main Content (Background) -->
+<header class="fixed top-0 w-full z-40 flex justify-between items-center px-margin-mobile h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shield_lock</span>
+<h1 class="font-headline-sm text-primary tracking-tight">Smart Filing</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A clean, professional headshot of a person with a friendly expression, set against a solid neutral studio background. The lighting is bright and high-key, reinforcing a sense of transparency and institutional trust. The visual style is crisp and modern, matching a premium corporate dashboard aesthetic with soft skin tones and high-fidelity detail." src="https://lh3.googleusercontent.com/aida/ADBb0uhW5GlaJp1LNOCVlnqDMYV25e-K5R3zrxmn6WPh_1Q-OLrBxomnUgaP9aH_VfA7FQcg4U6P1T-WYuR48HHTcyQ2mWXuUBQ2A3p_I_xsg74AqMzvreGyVy0X3JZ4CK33NdrGY5XdRLsEnPeQA84FnSZ6YqMEFk3jqBQTQBiaMxr90LnfIaNvqgmYZ_GC5P6QsV6mVJX_i-6hZhI1N6Sqzs6MpjmKtKn4L6yvBB-oxo_tyAxSULTXAxtoig"/>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile pb-32 h-screen overflow-y-auto">
+<div class="mb-lg">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container/20 text-on-secondary-container rounded-full mb-xs">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-sm text-label-sm">Active Settlement</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xs">Facebook Data Privacy Settlement</h2>
+<p class="text-on-surface-variant font-body-md">Meta Platforms, Inc. has agreed to a $725 million settlement to resolve a class action lawsuit alleging that Facebook shared user data without permission.</p>
+</div>
+<div class="grid grid-cols-1 gap-md mb-lg">
+<div class="p-md rounded-xl border border-outline-variant bg-surface-container-lowest">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-xs">Case Details</h3>
+<div class="space-y-sm">
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<span class="text-on-surface-variant font-body-sm">Case Number</span>
+<span class="font-label-lg text-label-lg">3:18-cv-06774-VC</span>
+</div>
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<span class="text-on-surface-variant font-body-sm">Deadline</span>
+<span class="font-label-lg text-label-lg">Aug 25, 2024</span>
+</div>
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<span class="text-on-surface-variant font-body-sm">Estimated Payout</span>
+<span class="font-label-lg text-label-lg text-secondary">$32.50 – $140.00</span>
+</div>
+</div>
+</div>
+<div class="p-md rounded-xl border border-outline-variant bg-surface-container-lowest">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-xs">Your Eligibility</h3>
+<p class="text-on-surface-variant font-body-sm mb-md">Our AI analyzed your digital footprint and confirmed your account was active during the class period (2007–2022).</p>
+<div class="flex items-center gap-3 p-sm bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-lg text-label-lg text-primary">Pre-qualification Confirmed</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Drawer Overlay -->
+<div class="fixed inset-0 bg-on-background/40 z-50 flex flex-col justify-end transition-opacity duration-300" id="drawer-overlay">
+<!-- Handle Area (Clickable to close) -->
+<div class="h-1/4 w-full" onclick="toggleDrawer()"></div>
+<!-- Drawer Content -->
+<div class="glass-morphism rounded-t-[32px] w-full max-h-[751px] overflow-y-auto drawer-shadow transition-transform duration-500 ease-out translate-y-0 relative border-t border-outline-variant/30">
+<!-- Top Handle Bar -->
+<div class="flex justify-center py-4">
+<div class="w-12 h-1.5 bg-outline-variant/50 rounded-full"></div>
+</div>
+<div class="px-margin-mobile pb-xl">
+<!-- AI Badge Header -->
+<div class="flex justify-center mb-md">
+<div class="ai-pulse px-4 py-1.5 rounded-full flex items-center gap-2 border border-white/50 relative">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-lg text-label-lg text-primary tracking-wide">AI Autofill Ready</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary text-center mb-lg">Review Information</h3>
+<!-- Verified Data List -->
+<div class="space-y-sm mb-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest px-xs mb-xs">Verified Details</p>
+<div class="flex items-center justify-between p-md bg-white/60 rounded-xl border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Legal Name</span>
+<span class="font-body-md text-primary">Alexander J. Sterling</span>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-md bg-white/60 rounded-xl border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Email Address</span>
+<span class="font-body-md text-primary">a.sterling@example.com</span>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-md bg-white/60 rounded-xl border border-outline-variant/50">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Home Address</span>
+<span class="font-body-md text-primary">742 Evergreen Terrace, Springfield</span>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Action Required Section -->
+<div class="p-lg bg-primary-container/5 rounded-[24px] border border-primary-container/10 mb-xl">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-primary">error</span>
+<h4 class="font-headline-sm text-headline-sm text-primary">Action Required</h4>
+</div>
+<div class="space-y-lg">
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-xs">Year of Account Creation</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg p-md focus:ring-2 focus:ring-primary focus:border-primary outline-none text-body-md" placeholder="YYYY" type="number"/>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg text-primary mb-xs">Upload Proof of Identity (Optional)</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center bg-white/40 hover:bg-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px] mb-xs">cloud_upload</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Tap to upload receipt or screenshot</span>
+<span class="text-body-sm text-on-surface-variant/70 mt-base">PDF, JPG, or PNG up to 10MB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky-like Action Button -->
+<button class="w-full bg-primary text-on-primary py-lg rounded-full font-label-lg text-label-lg shadow-lg active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+          Submit Verified Claim
+          <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation (Shared Component Integration) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center bg-surface border-t border-outline-variant px-xs py-base pb-safe z-[60]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-sm text-label-sm">My Claims</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Filing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</div>
+</nav>
+<script>
+    function toggleDrawer() {
+      const drawer = document.getElementById('drawer-overlay');
+      if (!drawer.style.display || drawer.style.display === 'none') {
+        drawer.style.display = 'flex';
+        setTimeout(() => drawer.style.opacity = '1', 10);
+      } else {
+        drawer.style.opacity = '0';
+        setTimeout(() => drawer.style.display = 'none', 300);
+      }
+    }
+
+    // Initialize Material Icons correctly
+    document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+      const iconName = icon.getAttribute('data-icon');
+      if (iconName) {
+        icon.textContent = iconName;
+      }
+    });
+  </script>
+</body></html>
