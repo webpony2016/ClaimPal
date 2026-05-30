@@ -4,6 +4,7 @@ import 'mock/mock_filing_repository.dart';
 import 'mock/mock_lawsuit_repository.dart';
 import 'mock/mock_referral_repository.dart';
 import 'mock/mock_subscription_repository.dart';
+import 'models/claim_progress.dart';
 import 'models/fomo_summary.dart';
 import 'models/lawsuit.dart';
 import 'models/rewards_summary.dart';
@@ -61,4 +62,10 @@ final expiredLawsuitsProvider = StreamProvider<List<Lawsuit>>(
 /// Loads the FOMO summary (missed / upcoming payouts) for the home banner.
 final fomoSummaryProvider = FutureProvider<FomoSummary>(
   (ref) => ref.watch(lawsuitRepositoryProvider).getFomoSummary(),
+);
+
+/// Streams the [ClaimProgress] pipeline for a filed claim, keyed by lawsuit id.
+/// Used by the filing success screen's [ClaimStepper].
+final claimProgressProvider = StreamProvider.family<ClaimProgress, String>(
+  (ref, id) => ref.watch(filingRepositoryProvider).watchProgress(id),
 );
