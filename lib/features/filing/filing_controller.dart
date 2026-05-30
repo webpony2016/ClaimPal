@@ -115,6 +115,11 @@ class FilingController extends AsyncNotifier<FilingState> {
     final current = _current;
     if (current == null || current.submitting) return;
 
+    // Flip `submitting` to true SYNCHRONOUSLY before the first await so the
+    // "Authorize & Submit" button disables immediately on tap. Combined with
+    // the early-return guard above, a synchronous double-tap re-enters here
+    // after the flag is already set and bails out, so the credit is consumed
+    // exactly once.
     _update(current.copyWith(submitting: true));
     try {
       await ref.read(filingRepositoryProvider).submit(current.draft);

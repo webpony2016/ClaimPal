@@ -1,8 +1,38 @@
+import 'package:claimpal/data/models/claim_progress.dart';
+import 'package:claimpal/data/models/filing_draft.dart';
 import 'package:claimpal/data/models/user_account.dart';
+import 'package:claimpal/data/providers.dart';
+import 'package:claimpal/data/repositories/filing_repository.dart';
 import 'package:claimpal/features/account/account_provider.dart';
 import 'package:claimpal/features/filing/filing_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// Loads a normal prefilled draft but fails on [submit], so we can exercise the
+/// controller's error path without flipping the global `kMockSimulateFailure`
+/// (a compile-time `const`).
+class _SubmitFailsRepository implements FilingRepository {
+  @override
+  Future<FilingDraft> getDraft(String lawsuitId) async {
+    return FilingDraft(
+      lawsuitId: lawsuitId,
+      fullName: 'Jordan Smith',
+      address: '123 Market St, San Francisco, CA',
+      actionRequiredFields: const {'Purchase Year': null},
+      uploadedFileName: null,
+      signatureData: null,
+    );
+  }
+
+  @override
+  Future<void> submit(FilingDraft draft) async {
+    throw StateError('submit failed');
+  }
+
+  @override
+  Stream<ClaimProgress> watchProgress(String lawsuitId) =>
+      Stream.value(const ClaimProgress(currentStage: ClaimStage.aiSubmitted));
+}
 
 void main() {
   const lawsuitId = 'facebook-data-privacy';
@@ -93,5 +123,55 @@ void main() {
     final state = container.read(filingControllerProvider(lawsuitId)).value!;
     expect(state.step, 2);
     expect(state.submitting, isFalse);
+  });
+
+  test('double-submit (fire two, await once) consumes exactly one credit',
+      () async {
+    await loaded();
+    container.read(accountProvider.notifier).register();
+    final usedBefore = container.read(accountProvider).autofillUsed;
+
+    controller().setActionField('Purchase Year', '2019');
+    controller().setUploadedFile('receipt.pdf');
+    controller().setSignature('sig:10');
+
+    // Fire the first submit (sets `submitting` synchronously) then immediately
+    // fire a second; the re-entrancy guard must drop the second call.
+    final first = controller().submit();
+    final second = controller().submit();
+    await Future.wait(<Future<void>>[first, second]);
+
+    expect(container.read(accountProvider).autofillUsed, usedBefore + 1);
+    final state = container.read(filingControllerProvider(lawsuitId)).value!;
+    expect(state.step, 2);
+    expect(state.submitting, isFalse);
+  });
+
+  test('submit error leaves credit unchanged and resets submitting', () async {
+    final errContainer = ProviderContainer(
+      overrides: [
+        filingRepositoryProvider.overrideWithValue(_SubmitFailsRepository()),
+      ],
+    );
+    addTearDown(errContainer.dispose);
+
+    await errContainer.read(filingControllerProvider(lawsuitId).future);
+    errContainer.read(accountProvider.notifier).register();
+    final usedBefore = errContainer.read(accountProvider).autofillUsed;
+
+    final ctrl =
+        errContainer.read(filingControllerProvider(lawsuitId).notifier);
+    ctrl.setActionField('Purchase Year', '2019');
+    ctrl.setUploadedFile('receipt.pdf');
+    ctrl.setSignature('sig:10');
+
+    await expectLater(ctrl.submit(), throwsStateError);
+
+    // No credit consumed, no permanent lock, and still on the signature step.
+    expect(errContainer.read(accountProvider).autofillUsed, usedBefore);
+    final state =
+        errContainer.read(filingControllerProvider(lawsuitId)).value!;
+    expect(state.submitting, isFalse);
+    expect(state.step, isNot(2));
   });
 }
