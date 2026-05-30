@@ -1,1 +1,15 @@
 .claude/worktrees/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+.idea/
+*.iml
+.metadata
+pubspec.lock
+
+# Tooling artifacts (not part of the app)
+.codegraph/
+.cursor/
