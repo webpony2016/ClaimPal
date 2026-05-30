@@ -9,6 +9,9 @@ abstract class FilingRepository {
   /// Submits a completed [draft], starting its progress pipeline.
   Future<void> submit(FilingDraft draft);
 
+  /// Lawsuit ids that have been submitted, for the "My Claims" list.
+  Future<List<String>> submittedClaimIds();
+
   /// Stream of the claim's progress for the given [lawsuitId].
   Stream<ClaimProgress> watchProgress(String lawsuitId);
 }

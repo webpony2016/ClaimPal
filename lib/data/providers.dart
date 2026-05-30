@@ -69,3 +69,8 @@ final fomoSummaryProvider = FutureProvider<FomoSummary>(
 final claimProgressProvider = StreamProvider.family<ClaimProgress, String>(
   (ref, id) => ref.watch(filingRepositoryProvider).watchProgress(id),
 );
+
+/// Loads the lawsuit ids the user has submitted, for the My Claims screen.
+final submittedClaimIdsProvider = FutureProvider<List<String>>(
+  (ref) => ref.watch(filingRepositoryProvider).submittedClaimIds(),
+);

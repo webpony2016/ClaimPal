@@ -23,4 +23,16 @@ void main() {
     final progress = await repo.watchProgress(draft.lawsuitId).first;
     expect(progress.currentStage, ClaimStage.aiSubmitted);
   });
+
+  test('submittedClaimIds is empty before any submit', () async {
+    final repo = MockFilingRepository();
+    expect(await repo.submittedClaimIds(), isEmpty);
+  });
+
+  test('submittedClaimIds includes a lawsuit id after submit', () async {
+    final repo = MockFilingRepository();
+    final draft = await repo.getDraft('facebook-data-privacy');
+    await repo.submit(draft);
+    expect(await repo.submittedClaimIds(), contains('facebook-data-privacy'));
+  });
 }

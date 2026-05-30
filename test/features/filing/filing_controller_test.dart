@@ -30,6 +30,9 @@ class _SubmitFailsRepository implements FilingRepository {
   }
 
   @override
+  Future<List<String>> submittedClaimIds() async => <String>[];
+
+  @override
   Stream<ClaimProgress> watchProgress(String lawsuitId) =>
       Stream.value(const ClaimProgress(currentStage: ClaimStage.aiSubmitted));
 }

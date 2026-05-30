@@ -40,6 +40,15 @@ class MockFilingRepository implements FilingRepository {
   }
 
   @override
+  Future<List<String>> submittedClaimIds() async {
+    await Future<void>.delayed(kMockLatency);
+    if (kMockSimulateFailure) {
+      throw StateError('Mock failure: submittedClaimIds');
+    }
+    return _submitted.toList();
+  }
+
+  @override
   Stream<ClaimProgress> watchProgress(String lawsuitId) {
     if (kMockSimulateFailure) {
       return Stream.error(StateError('Mock failure: watchProgress'));
