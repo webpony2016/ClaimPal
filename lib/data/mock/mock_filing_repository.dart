@@ -7,12 +7,9 @@ import 'mock_data.dart';
 class MockFilingRepository implements FilingRepository {
   MockFilingRepository();
 
-  // Records submitted lawsuit ids. Consumed by the "My Claims" screen
-  // (Task 5.11) to list filings in progress; surfaced via [submittedLawsuitIds].
+  // Records submitted lawsuit ids. Surfaced via submittedClaimIds() and
+  // consumed by the "My Claims" screen to list filings in progress.
   final Set<String> _submitted = <String>{};
-
-  /// Lawsuit ids that have been submitted via [submit], for the My Claims list.
-  Set<String> get submittedLawsuitIds => Set.unmodifiable(_submitted);
 
   @override
   Future<FilingDraft> getDraft(String lawsuitId) async {
