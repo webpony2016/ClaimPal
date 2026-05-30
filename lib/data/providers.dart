@@ -4,6 +4,7 @@ import 'mock/mock_filing_repository.dart';
 import 'mock/mock_lawsuit_repository.dart';
 import 'mock/mock_referral_repository.dart';
 import 'mock/mock_subscription_repository.dart';
+import 'models/fomo_summary.dart';
 import 'models/lawsuit.dart';
 import 'models/rewards_summary.dart';
 import 'models/subscription_plan.dart';
@@ -45,4 +46,19 @@ final rewardsProvider = FutureProvider<RewardsSummary>(
 /// lawsuit detail screen.
 final lawsuitByIdProvider = FutureProvider.family<Lawsuit?, String>(
   (ref, id) => ref.watch(lawsuitRepositoryProvider).getById(id),
+);
+
+/// Streams the active (claimable) lawsuits.
+final activeLawsuitsProvider = StreamProvider<List<Lawsuit>>(
+  (ref) => ref.watch(lawsuitRepositoryProvider).watchActive(),
+);
+
+/// Streams the expired (closed) lawsuits.
+final expiredLawsuitsProvider = StreamProvider<List<Lawsuit>>(
+  (ref) => ref.watch(lawsuitRepositoryProvider).watchExpired(),
+);
+
+/// Loads the FOMO summary (missed / upcoming payouts) for the home banner.
+final fomoSummaryProvider = FutureProvider<FomoSummary>(
+  (ref) => ref.watch(lawsuitRepositoryProvider).getFomoSummary(),
 );
