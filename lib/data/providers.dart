@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'mock/mock_filing_repository.dart';
 import 'mock/mock_lawsuit_repository.dart';
 import 'mock/mock_subscription_repository.dart';
 import 'models/subscription_plan.dart';
+import 'repositories/filing_repository.dart';
 import 'repositories/lawsuit_repository.dart';
 import 'repositories/subscription_repository.dart';
 
@@ -15,6 +17,10 @@ final lawsuitRepositoryProvider = Provider<LawsuitRepository>(
 
 final subscriptionRepositoryProvider = Provider<SubscriptionRepository>(
   (ref) => const MockSubscriptionRepository(),
+);
+
+final filingRepositoryProvider = Provider<FilingRepository>(
+  (ref) => MockFilingRepository(),
 );
 
 /// Convenience data providers.
