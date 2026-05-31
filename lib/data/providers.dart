@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../core/config/claimpal_environment.dart';
 import 'mock/mock_filing_repository.dart';
 import 'mock/mock_lawsuit_repository.dart';
 import 'mock/mock_referral_repository.dart';
@@ -13,12 +15,29 @@ import 'repositories/filing_repository.dart';
 import 'repositories/lawsuit_repository.dart';
 import 'repositories/referral_repository.dart';
 import 'repositories/subscription_repository.dart';
+import 'supabase/supabase_lawsuit_repository.dart';
+import 'supabase/supabase_referral_repository.dart';
 
 /// Repository providers wire the mock implementations now; they can be
 /// `override`n with Supabase-backed implementations later.
 
+final useSupabaseDataProvider = Provider<bool>(
+  (ref) => ClaimPalEnvironment.hasSupabaseConfig,
+);
+
+final supabaseClientProvider = Provider<SupabaseClient?>(
+  (ref) => ref.watch(useSupabaseDataProvider)
+      ? Supabase.instance.client
+      : null,
+);
+
 final lawsuitRepositoryProvider = Provider<LawsuitRepository>(
-  (ref) => const MockLawsuitRepository(),
+  (ref) {
+    if (ref.watch(useSupabaseDataProvider)) {
+      return SupabaseLawsuitRepository(Supabase.instance.client);
+    }
+    return const MockLawsuitRepository();
+  },
 );
 
 final subscriptionRepositoryProvider = Provider<SubscriptionRepository>(
@@ -30,7 +49,13 @@ final filingRepositoryProvider = Provider<FilingRepository>(
 );
 
 final referralRepositoryProvider = Provider<ReferralRepository>(
-  (ref) => const MockReferralRepository(),
+  (ref) {
+    final client = ref.watch(supabaseClientProvider);
+    if (client != null) {
+      return SupabaseReferralRepository(client);
+    }
+    return const MockReferralRepository();
+  },
 );
 
 /// Convenience data providers.

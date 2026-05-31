@@ -25,6 +25,19 @@ flutter pub get
 flutter run
 ```
 
+如果你希望 Flutter 客户端直接读取 Supabase 真实数据：
+
+```text
+flutter run --dart-define=SUPABASE_URL=https://<your-project>.supabase.co --dart-define=SUPABASE_ANON_KEY=<your-anon-key>
+```
+
+说明：
+
+- 未传入 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 时，App 会自动回退到本地 mock 数据。
+- 当前实现会在启动时自动执行匿名登录，因此你的 Supabase 项目需要启用 Anonymous Sign-Ins。
+- 在开启 Supabase 后，诉讼列表、账户档位（`profiles`）和邀请奖励（`referrals`）都会读取真实数据。
+- 客户端只能使用 `anon key`，不要把 `service_role` 或数据库直连串塞进 App —— 安全不是装饰品。
+
 ### Web Admin 后台
 
 后台审核服务位于：
