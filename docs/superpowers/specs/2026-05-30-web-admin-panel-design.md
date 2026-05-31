@@ -80,8 +80,7 @@ create table public.pending_settlements (
   eligibility_text text,
   ai_payload jsonb not null default '{}'::jsonb,
   scraper_payload jsonb not null default '{}'::jsonb,
-  created_at timestamptz not null default now(),
-  reviewed_at timestamptz
+  created_at timestamptz not null default now()
 );
 ```
 
@@ -161,8 +160,9 @@ The admin UI is one dense review screen:
   - Optional lightweight status area for save/publish errors.
 
 - Left column: Raw Source Data.
+  - Shows the original `source_url` at the top when present.
+  - Provides a clickable `Open original source` link so the reviewer can inspect the live/source page in a new browser tab when the raw snippet is not enough.
   - Scrollable text/markdown/HTML display.
-  - Shows source URL when present.
   - Preserves whitespace for copied scraper snippets.
 
 - Right column: AI Sanitized Form.

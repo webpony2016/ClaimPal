@@ -1,0 +1,1 @@
+"""ClaimPal admin panel package."""

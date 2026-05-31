@@ -9,9 +9,11 @@
 ```
 supabase/
 ├── migrations/
-│   └── 20260530172624_init_claimpal_schema.sql   # 前向迁移(建表 + RLS + 触发器)
+│   ├── 20260530172624_init_claimpal_schema.sql   # 前向迁移(建表 + RLS + 触发器)
+│   └── 20260530190000_admin_pending_settlements.sql  # Admin review pool + settlement country
 ├── rollback/
-│   └── 20260530172624_init_claimpal_schema_down.sql  # 手动回滚脚本(不归 CLI 管)
+│   ├── 20260530172624_init_claimpal_schema_down.sql  # 手动回滚脚本(不归 CLI 管)
+│   └── 20260530190000_admin_pending_settlements_down.sql  # Admin migration 回滚脚本
 ├── tests/
 │   └── reward_engine_test.sql                    # pgTAP 测试:奖励引擎 + 列守卫
 └── README.md                                     # 本文件
@@ -50,7 +52,7 @@ rtk npx supabase migration up
 ```
 
 `supabase start` 结束后会打印本地连接信息(API URL、Studio URL、`service_role` key、
-数据库连接串)。Studio 默认在 http://localhost:54323,可视化查看刚建出来的 4 张表。
+数据库连接串)。Studio 默认在 http://localhost:54323,可视化查看核心表与 Admin review pool。
 
 ---
 
@@ -59,7 +61,17 @@ rtk npx supabase migration up
 ```bash
 # 一次性:把本地仓库链接到你的云端 Supabase 项目
 rtk npx supabase link --project-ref <your-project-ref>
+```
 
+Production preflight: before applying `20260530190000_admin_pending_settlements.sql` to a live database,
+check for existing negative payouts. The `settlements_max_payout_non_negative_check` constraint will fail if
+any rows are returned:
+
+```sql
+select id, max_payout from public.settlements where max_payout < 0;
+```
+
+```bash
 # 把尚未应用的迁移推到云端
 rtk npx supabase db push
 ```
@@ -92,18 +104,20 @@ rtk npx supabase test db
 
 ---
 
-## 6. 回滚(撤销本次迁移)
+## 6. 回滚(撤销迁移)
 
 回滚脚本不归 CLI 管,用 `psql` 直连数据库手动执行。先拿到连接串:
 
-```bash
+```powershell
 # 本地实例连接串(supabase start 输出里有,通常如下)
 $env:DATABASE_URL = "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
 
+rtk psql $env:DATABASE_URL -f supabase/rollback/20260530190000_admin_pending_settlements_down.sql
 rtk psql $env:DATABASE_URL -f supabase/rollback/20260530172624_init_claimpal_schema_down.sql
 ```
 
-脚本按依赖逆序 drop:`auth.users` 触发器 → 列守卫 → 奖励引擎 → 版本同步触发器 →
+Admin 回滚脚本必须先跑:它会删除 `pending_settlements`,并撤销 `settlements.country` 与相关约束。
+初始 schema 回滚脚本按依赖逆序 drop:`auth.users` 触发器 → 列守卫 → 奖励引擎 → 版本同步触发器 →
 四张表(policy/index/外键随表消失) → 序列 → 枚举类型。全程 `if exists`,可重复执行。
 
 > 云端回滚请谨慎:`db push` 后云端会记录迁移版本号。手动跑 down 脚本删表后,如需重建,
@@ -113,7 +127,7 @@ rtk psql $env:DATABASE_URL -f supabase/rollback/20260530172624_init_claimpal_sch
 
 ## 7. 业务模型速查
 
-### 4 张表
+### Core + admin tables
 
 | 表 | 作用 | 关键点 |
 |---|---|---|
@@ -121,6 +135,13 @@ rtk psql $env:DATABASE_URL -f supabase/rollback/20260530172624_init_claimpal_sch
 | `settlements` | 集体诉讼和解信息(目录数据) | `version_id` 为增量同步游标(序列自增) |
 | `referrals` | 推荐台账 | 匿名:无任何金额/案件字段 |
 | `global_meta` | 动态键值遥测 | 存全局 `data_version` |
+| `pending_settlements` | Admin 临时审核队列 | 客户端 RLS 显式拒绝,审批/拒绝后删除 |
+
+### Admin review pool
+
+This table is for the Web Admin panel workflow implemented by the admin service. It stages scraper output, source URL, AI-parsed fields, and metadata so the service can approve rows into `settlements` or remove rejected rows.
+
+The live `settlements.country` column stores `US` or `CA` so the admin-reviewed country selector is preserved for client filtering and regional presentation.
 
 ### 增量同步(PRD §2.3)
 
@@ -151,8 +172,8 @@ rtk psql $env:DATABASE_URL -f supabase/rollback/20260530172624_init_claimpal_sch
 **模拟「后台批准并发布」一条和解信息(会自动 bump data_version):**
 
 ```sql
-insert into public.settlements (brand_name, max_payout, deadline, eligibility_text, proof_required)
-values ('Acme 数据泄露和解', 125.00, now() + interval '90 days', '2020-2023 年间的注册用户', false);
+insert into public.settlements (brand_name, max_payout, country, deadline, eligibility_text, proof_required)
+values ('Acme 数据泄露和解', 125.00, 'US', now() + interval '90 days', '2020-2023 年间的注册用户', false);
 ```
 
 **模拟「被推荐人完成首次申报」触发奖励(需 service_role / 后端身份):**
