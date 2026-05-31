@@ -12,3 +12,17 @@ build/
 # Tooling artifacts (not part of the app)
 .codegraph/
 .cursor/
+
+# Local environment files and tool state
+.env
+**/.env
+!.env.example
+!**/.env.example
+.superpowers/
+
+# Python cache / local test artifacts
+**/.pytest_cache/
+**/__pycache__/
+
+# Scraper local state
+scraper/scraper_state.db

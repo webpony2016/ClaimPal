@@ -69,14 +69,20 @@ admin_panel/
 - `ADMIN_BEARER_TOKEN`：Admin API 的 Bearer Token
 - `DATABASE_URL`：Postgres / Supabase 连接串
 
-仓库里已经提供了一个占位版 `admin_panel/.env`：
+仓库里提供了一个示例配置文件 `admin_panel/.env.example`：
 
 ```env
 ADMIN_BEARER_TOKEN=replace-with-admin-token
 DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
 ```
 
-你可以直接修改这个文件，也可以在 shell 里手动设置环境变量。
+建议先复制为本地 `.env` 后再修改：
+
+```text
+Copy-Item .env.example .env
+```
+
+随后再按本地环境修改该 `.env`，或者在 shell 里手动设置环境变量。
 
 ---
 

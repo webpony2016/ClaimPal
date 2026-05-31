@@ -1,0 +1,1 @@
+"""ClaimPal scraper package."""

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>CourtListener Feed</title>
+    <item>
+      <title>Apple Settlement Notice</title>
+      <link>https://www.courtlistener.com/apple-settlement/</link>
+      <pubDate>Fri, 30 May 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[<p>United States customers may be eligible. Claim deadline: August 14, 2026. Up to $35.00.</p>]]></description>
+      <guid>apple-1</guid>
+    </item>
+    <item>
+      <title>Missing Link Entry</title>
+      <pubDate>Fri, 30 May 2026 12:00:00 GMT</pubDate>
+      <description><![CDATA[<p>Should be skipped.</p>]]></description>
+      <guid>bad-entry</guid>
+    </item>
+  </channel>
+</rss>
