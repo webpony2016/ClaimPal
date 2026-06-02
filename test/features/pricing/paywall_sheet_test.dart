@@ -86,9 +86,8 @@ void main() {
 
     // Register (guest -> starter) then exhaust both starter credits.
     final notifier = container.read(accountProvider.notifier)..register();
-    notifier
-      ..useAutofillCredit()
-      ..useAutofillCredit();
+    await notifier.useAutofillCredit();
+    await notifier.useAutofillCredit();
 
     await tester.pumpWidget(_app(container));
     await tester.pumpAndSettle();

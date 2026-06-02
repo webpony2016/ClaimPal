@@ -11,12 +11,17 @@ import 'models/fomo_summary.dart';
 import 'models/lawsuit.dart';
 import 'models/rewards_summary.dart';
 import 'models/subscription_plan.dart';
+import 'models/user_claim.dart';
 import 'repositories/filing_repository.dart';
 import 'repositories/lawsuit_repository.dart';
 import 'repositories/referral_repository.dart';
 import 'repositories/subscription_repository.dart';
+import 'repositories/user_claim_repository.dart';
+import 'supabase/supabase_autofill_usage_store.dart';
+import 'supabase/supabase_filing_repository.dart';
 import 'supabase/supabase_lawsuit_repository.dart';
 import 'supabase/supabase_referral_repository.dart';
+import 'supabase/supabase_user_claim_repository.dart';
 
 /// Repository providers wire the mock implementations now; they can be
 /// `override`n with Supabase-backed implementations later.
@@ -29,6 +34,13 @@ final supabaseClientProvider = Provider<SupabaseClient?>(
   (ref) => ref.watch(useSupabaseDataProvider)
       ? Supabase.instance.client
       : null,
+);
+
+final supabaseAutofillUsageStoreProvider = Provider<SupabaseAutofillUsageStore?>(
+  (ref) {
+    final client = ref.watch(supabaseClientProvider);
+    return client == null ? null : SupabaseAutofillUsageStore(client);
+  },
 );
 
 final lawsuitRepositoryProvider = Provider<LawsuitRepository>(
@@ -45,7 +57,20 @@ final subscriptionRepositoryProvider = Provider<SubscriptionRepository>(
 );
 
 final filingRepositoryProvider = Provider<FilingRepository>(
-  (ref) => MockFilingRepository(),
+  (ref) {
+    final client = ref.watch(supabaseClientProvider);
+    if (client != null) {
+      return SupabaseFilingRepository(client);
+    }
+    return MockFilingRepository();
+  },
+);
+
+final userClaimRepositoryProvider = Provider<UserClaimRepository?>(
+  (ref) {
+    final client = ref.watch(supabaseClientProvider);
+    return client == null ? null : SupabaseUserClaimRepository(client);
+  },
 );
 
 final referralRepositoryProvider = Provider<ReferralRepository>(
@@ -87,6 +112,15 @@ final expiredLawsuitsProvider = StreamProvider<List<Lawsuit>>(
 /// Loads the FOMO summary (missed / upcoming payouts) for the home banner.
 final fomoSummaryProvider = FutureProvider<FomoSummary>(
   (ref) => ref.watch(lawsuitRepositoryProvider).getFomoSummary(),
+);
+
+/// Streams the current authenticated user's real claim snapshots.
+final userClaimsProvider = StreamProvider<List<UserClaim>>(
+  (ref) {
+    final repository = ref.watch(userClaimRepositoryProvider);
+    return repository?.watchCurrentUserClaims() ??
+        Stream.value(const <UserClaim>[]);
+  },
 );
 
 /// Streams the [ClaimProgress] pipeline for a filed claim, keyed by lawsuit id.

@@ -21,6 +21,8 @@ class LawsuitFeed extends StatelessWidget {
     required this.onTap,
     required this.onRetry,
     this.activeFilter,
+    this.expiredFirst = false,
+    this.cardBuilder,
   });
 
   final AsyncValue<List<Lawsuit>> activeAsync;
@@ -31,6 +33,14 @@ class LawsuitFeed extends StatelessWidget {
 
   /// Optional predicate (e.g. search) applied to both lists.
   final bool Function(Lawsuit)? activeFilter;
+
+  /// When true, the expired section renders above the active one (used by the
+  /// Tracker home, which surfaces closing/closed settlements first).
+  final bool expiredFirst;
+
+  /// Optional override for how each lawsuit renders. Defaults to [LawsuitCard].
+  /// The Tracker home passes a status-aware card builder here.
+  final Widget Function(Lawsuit lawsuit, VoidCallback onTap)? cardBuilder;
 
   List<Lawsuit> _apply(List<Lawsuit> list) {
     final filter = activeFilter;
@@ -57,6 +67,7 @@ class LawsuitFeed extends StatelessWidget {
             data: (expired) => _CardList(
               lawsuits: _apply(expired),
               onTap: onTap,
+              cardBuilder: cardBuilder,
             ),
           );
         }
@@ -65,11 +76,16 @@ class LawsuitFeed extends StatelessWidget {
           return const _FeedEmpty();
         }
 
+        final activeSection = _CardList(
+          lawsuits: visibleActive,
+          onTap: onTap,
+          cardBuilder: cardBuilder,
+        );
+
         return Column(
-          children: <Widget>[
-            _CardList(lawsuits: visibleActive, onTap: onTap),
-            expiredSection,
-          ],
+          children: expiredFirst
+              ? <Widget>[expiredSection, activeSection]
+              : <Widget>[activeSection, expiredSection],
         );
       },
     );
@@ -77,10 +93,15 @@ class LawsuitFeed extends StatelessWidget {
 }
 
 class _CardList extends StatelessWidget {
-  const _CardList({required this.lawsuits, required this.onTap});
+  const _CardList({
+    required this.lawsuits,
+    required this.onTap,
+    this.cardBuilder,
+  });
 
   final List<Lawsuit> lawsuits;
   final ValueChanged<Lawsuit> onTap;
+  final Widget Function(Lawsuit lawsuit, VoidCallback onTap)? cardBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +110,11 @@ class _CardList extends StatelessWidget {
         for (final lawsuit in lawsuits)
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
-            child: LawsuitCard(
-              lawsuit: lawsuit,
-              onTap: () => onTap(lawsuit),
-            ),
+            child: cardBuilder?.call(lawsuit, () => onTap(lawsuit)) ??
+                LawsuitCard(
+                  lawsuit: lawsuit,
+                  onTap: () => onTap(lawsuit),
+                ),
           ),
       ],
     );

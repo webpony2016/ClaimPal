@@ -36,6 +36,7 @@ flutter run --dart-define=SUPABASE_URL=https://<your-project>.supabase.co --dart
 - 未传入 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 时，App 会自动回退到本地 mock 数据。
 - 当前实现会在启动时自动执行匿名登录，因此你的 Supabase 项目需要启用 Anonymous Sign-Ins。
 - 在开启 Supabase 后，诉讼列表、账户档位（`profiles`）和邀请奖励（`referrals`）都会读取真实数据。
+- AI autofill 使用额度现已持久化到独立的 `autofill_usage_counters` 表，通过 Supabase RPC 读取/扣减；别忘了把最新 migration 一并应用。
 - 客户端只能使用 `anon key`，不要把 `service_role` 或数据库直连串塞进 App —— 安全不是装饰品。
 
 ### Web Admin 后台

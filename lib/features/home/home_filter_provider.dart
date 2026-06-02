@@ -8,7 +8,7 @@ import '../../data/models/fomo_summary.dart';
 /// always-visible active ones; [timeframe] drives the FOMO summary window.
 class HomeFilter {
   const HomeFilter({
-    this.showExpired = false,
+    this.showExpired = true,
     this.timeframe = FomoTimeframe.threeMonths,
   });
 

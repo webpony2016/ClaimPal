@@ -11,19 +11,24 @@ import '../account/account_provider.dart';
 import 'home_filter_provider.dart';
 import 'widgets/home_filter_controls.dart';
 import 'widgets/lawsuit_feed.dart';
+import 'widgets/tracker_lawsuit_card.dart';
 
 /// Guest landing screen (route `/`).
 ///
 /// A FOMO-driven entry point: a gradient banner summarizing missed/upcoming
 /// payouts, a control panel (Show Expired switch + timeframe selector), then a
-/// mixed feed of active (vivid) and — when toggled — expired (dimmed) lawsuits.
-/// A "Get started" action registers the guest and enters the tracker.
+/// mixed feed that now defaults to showing expired lawsuits first.
+///
+/// When the current user has account context, the feed also surfaces their
+/// per-claim status (filed / not eligible / payout received) via the shared
+/// tracker-style card treatment.
 class GuestHomeScreen extends ConsumerWidget {
   const GuestHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(homeFilterProvider);
+    final account = ref.watch(accountProvider);
     final fomoAsync = ref.watch(fomoSummaryProvider);
     final activeAsync = ref.watch(activeLawsuitsProvider);
     final expiredAsync = ref.watch(expiredLawsuitsProvider);
@@ -82,6 +87,12 @@ class GuestHomeScreen extends ConsumerWidget {
             activeAsync: activeAsync,
             expiredAsync: expiredAsync,
             showExpired: filter.showExpired,
+            expiredFirst: true,
+            cardBuilder: (lawsuit, onTap) => TrackerLawsuitCard(
+              lawsuit: lawsuit,
+              onTap: onTap,
+              enableUserOverlay: !account.isGuest,
+            ),
             onTap: openDetail,
             onRetry: () {
               ref.invalidate(activeLawsuitsProvider);

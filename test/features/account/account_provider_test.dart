@@ -29,18 +29,18 @@ void main() {
     expect(state.autofillUsed, 0);
   });
 
-  test('useAutofillCredit twice exhausts starter credit', () {
+  test('useAutofillCredit twice exhausts starter credit', () async {
     notifier().register();
-    notifier().useAutofillCredit();
-    notifier().useAutofillCredit();
+    await notifier().useAutofillCredit();
+    await notifier().useAutofillCredit();
     final state = read();
     expect(state.autofillUsed, 2);
     expect(state.hasAutofillCredit, isFalse);
   });
 
-  test('upgradeTo(pro) sets unlimited (null) limit and resets usage', () {
+  test('upgradeTo(pro) sets unlimited (null) limit and resets usage', () async {
     notifier().register();
-    notifier().useAutofillCredit();
+    await notifier().useAutofillCredit();
     notifier().upgradeTo(SubscriptionTier.pro);
     final state = read();
     expect(state.tier, SubscriptionTier.pro);
@@ -49,10 +49,10 @@ void main() {
     expect(state.hasAutofillCredit, isTrue);
   });
 
-  test('pro useAutofillCredit keeps unlimited credit', () {
+  test('pro useAutofillCredit keeps unlimited credit', () async {
     notifier().upgradeTo(SubscriptionTier.pro);
-    notifier().useAutofillCredit();
-    notifier().useAutofillCredit();
+    await notifier().useAutofillCredit();
+    await notifier().useAutofillCredit();
     final state = read();
     expect(state.autofillLimit, isNull);
     expect(state.autofillUsed, 0); // unlimited: no-op

@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../models/autofill_usage_snapshot.dart';
 import '../models/user_account.dart';
 
 /// Maps Supabase auth/profile data into the app's [UserAccount] model.
@@ -11,18 +12,20 @@ class SupabaseAccountMapper {
     required User? user,
     required bool fallbackIsGuest,
     int autofillUsed = 0,
+    AutofillUsageSnapshot? usageSnapshot,
     DateTime? now,
   }) {
     final referenceNow = now ?? DateTime.now().toUtc();
     final remoteGuest = _isAnonymousUser(user);
     final isGuest = fallbackIsGuest ? remoteGuest : false;
-    final tier = _resolveTier(profileRow, referenceNow);
+    final tier = usageSnapshot?.effectiveTier ??
+        _resolveTier(profileRow, referenceNow);
 
     return UserAccount(
       isGuest: isGuest,
       tier: tier,
-      autofillUsed: autofillUsed,
-      autofillLimit: _limitForTier(tier),
+      autofillUsed: usageSnapshot?.usedCount ?? autofillUsed,
+      autofillLimit: usageSnapshot?.autofillLimit ?? _limitForTier(tier),
     );
   }
 

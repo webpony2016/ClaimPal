@@ -14,9 +14,9 @@ void main() {
   HomeFilter read() => container.read(homeFilterProvider);
   HomeFilterNotifier notifier() => container.read(homeFilterProvider.notifier);
 
-  test('default is showExpired false / threeMonths', () {
+  test('default is showExpired true / threeMonths', () {
     final state = read();
-    expect(state.showExpired, isFalse);
+    expect(state.showExpired, isTrue);
     expect(state.timeframe, FomoTimeframe.threeMonths);
   });
 
@@ -29,6 +29,6 @@ void main() {
   test('setTimeframe(sixMonths) updates state', () {
     notifier().setTimeframe(FomoTimeframe.sixMonths);
     expect(read().timeframe, FomoTimeframe.sixMonths);
-    expect(read().showExpired, isFalse);
+    expect(read().showExpired, isTrue);
   });
 }

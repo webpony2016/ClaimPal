@@ -123,9 +123,16 @@ class FilingController extends AsyncNotifier<FilingState> {
     _update(current.copyWith(submitting: true));
     try {
       await ref.read(filingRepositoryProvider).submit(current.draft);
-      // Consume exactly one autofill credit per successful submit. (No-op for
-      // unlimited/pro accounts.)
-      ref.read(accountProvider.notifier).useAutofillCredit();
+      if (ref.read(useSupabaseDataProvider)) {
+        await ref.read(accountProvider.notifier).refreshFromSupabase();
+        ref.invalidate(userClaimsProvider);
+        ref.invalidate(submittedClaimIdsProvider);
+        ref.invalidate(claimProgressProvider(lawsuitId));
+      } else {
+        // Consume exactly one autofill credit per successful submit. (No-op
+        // for unlimited/pro accounts.)
+        await ref.read(accountProvider.notifier).useAutofillCredit();
+      }
       _update(current.copyWith(submitting: false, step: 2));
     } catch (_) {
       _update(current.copyWith(submitting: false));

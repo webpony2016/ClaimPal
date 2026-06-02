@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../data/models/autofill_usage_snapshot.dart';
+import '../../data/models/user_account.dart';
 import '../../data/providers.dart';
 import '../../data/supabase/supabase_account_mapper.dart';
-import '../../data/models/user_account.dart';
 
 /// Per-tier monthly autofill limits. `null` means unlimited.
 int? _limitForTier(SubscriptionTier tier) {
@@ -46,9 +47,28 @@ class AccountNotifier extends Notifier<UserAccount> {
   }
 
   /// Consumes one autofill credit. Pro (unlimited) accounts are unaffected.
-  void useAutofillCredit() {
+  Future<void> useAutofillCredit() async {
     if (state.autofillLimit == null) return; // unlimited (pro)
-    state = state.copyWith(autofillUsed: state.autofillUsed + 1);
+
+    final usageStore = ref.read(supabaseAutofillUsageStoreProvider);
+    if (usageStore == null) {
+      state = state.copyWith(autofillUsed: state.autofillUsed + 1);
+      return;
+    }
+
+    final snapshot = await usageStore.consumeCredit();
+    if (!ref.mounted) {
+      return;
+    }
+
+    state = _accountFromSnapshot(snapshot);
+  }
+
+  Future<void> refreshFromSupabase() async {
+    if (!ref.read(useSupabaseDataProvider)) {
+      return;
+    }
+    await _hydrateFromSupabase();
   }
 
   /// Upgrades to [tier], applying the matching autofill limit and resetting
@@ -73,10 +93,15 @@ class AccountNotifier extends Notifier<UserAccount> {
     _hydrating = true;
     try {
       final client = ref.read(supabaseClientProvider);
+      final usageStore = ref.read(supabaseAutofillUsageStoreProvider);
       final user = client?.auth.currentUser;
       if (client == null || user == null) {
         return;
       }
+
+      final usageSnapshot = usageStore == null
+          ? null
+          : await usageStore.getCurrentUsage();
 
       final row = await client
           .from('profiles')
@@ -93,6 +118,7 @@ class AccountNotifier extends Notifier<UserAccount> {
         autofillUsed: state.autofillUsed,
         fallbackIsGuest: state.isGuest,
         user: user,
+        usageSnapshot: usageSnapshot,
       );
     } finally {
       _hydrating = false;
@@ -114,6 +140,15 @@ class AccountNotifier extends Notifier<UserAccount> {
     } on AuthException {
       // Keep the local guest state even if the remote reset fails.
     }
+  }
+
+  UserAccount _accountFromSnapshot(AutofillUsageSnapshot snapshot) {
+    return UserAccount(
+      isGuest: state.isGuest,
+      tier: snapshot.effectiveTier,
+      autofillUsed: snapshot.usedCount,
+      autofillLimit: snapshot.autofillLimit,
+    );
   }
 }
 

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text.dart';
 import '../../data/models/lawsuit.dart';
 import '../../data/providers.dart';
 import 'home_filter_provider.dart';
+import 'tracker_claim_status.dart';
 import 'widgets/home_filter_controls.dart';
 import 'widgets/lawsuit_feed.dart';
 import 'widgets/search_field.dart';
+import 'widgets/tracker_lawsuit_card.dart';
 
 /// Tracker tab home (route `/tracker`).
 ///
@@ -25,7 +28,16 @@ class TrackerHomeScreen extends ConsumerStatefulWidget {
 }
 
 class _TrackerHomeScreenState extends ConsumerState<TrackerHomeScreen> {
+  static final NumberFormat _currency = NumberFormat.currency(
+    symbol: '\$',
+    decimalDigits: 2,
+  );
+
   String _query = '';
+
+  // The Tracker now defaults to active/in-progress work only. Users can still
+  // toggle the expired list back on when they want to revisit closed cases.
+  bool _showExpired = false;
 
   bool _matches(Lawsuit lawsuit) {
     final q = _query.trim().toLowerCase();
@@ -39,6 +51,7 @@ class _TrackerHomeScreenState extends ConsumerState<TrackerHomeScreen> {
     final filter = ref.watch(homeFilterProvider);
     final activeAsync = ref.watch(activeLawsuitsProvider);
     final expiredAsync = ref.watch(expiredLawsuitsProvider);
+    final payoutTotal = ref.watch(trackerPayoutTotalProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -55,21 +68,32 @@ class _TrackerHomeScreenState extends ConsumerState<TrackerHomeScreen> {
                   ),
                   const SizedBox(height: 16),
                   HomeFilterControls(
-                    showExpired: filter.showExpired,
+                    showExpired: _showExpired,
                     timeframe: filter.timeframe,
-                    onShowExpiredChanged: (value) => ref
-                        .read(homeFilterProvider.notifier)
-                        .toggleShowExpired(value),
+                    onShowExpiredChanged: (value) =>
+                        setState(() => _showExpired = value),
                     onTimeframeChanged: (value) => ref
                         .read(homeFilterProvider.notifier)
                         .setTimeframe(value),
                   ),
+                  if (!_showExpired && payoutTotal > 0) ...<Widget>[
+                    const SizedBox(height: 16),
+                    _PayoutSummaryCard(total: _currency.format(payoutTotal)),
+                  ],
                   const SizedBox(height: 24),
                   LawsuitFeed(
                     activeAsync: activeAsync,
                     expiredAsync: expiredAsync,
-                    showExpired: filter.showExpired,
+                    showExpired: _showExpired,
                     activeFilter: _matches,
+                    // Tracker surfaces expired/closing settlements first and
+                    // overlays the user's per-claim status on each card.
+                    expiredFirst: true,
+                    cardBuilder: (lawsuit, onTap) =>
+                        TrackerLawsuitCard(
+                          lawsuit: lawsuit,
+                          onTap: onTap,
+                        ),
                     onTap: (lawsuit) => context.go('/lawsuit/${lawsuit.id}'),
                     onRetry: () {
                       ref.invalidate(activeLawsuitsProvider);
@@ -81,6 +105,61 @@ class _TrackerHomeScreenState extends ConsumerState<TrackerHomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PayoutSummaryCard extends StatelessWidget {
+  const _PayoutSummaryCard({required this.total});
+
+  final String total;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.success.withValues(alpha: 0.4)),
+      ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: AppColors.success.withValues(alpha: 0.14),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(
+              Icons.verified_outlined,
+              color: AppColors.successDark,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Received payouts',
+                  style: AppTextStyles.labelSm.copyWith(
+                    color: AppColors.mutedText,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  total,
+                  style: AppTextStyles.headlineSm.copyWith(
+                    color: AppColors.successDark,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

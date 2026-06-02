@@ -10,7 +10,10 @@ const Duration kMockLatency = Duration(milliseconds: 300);
 
 /// Active (claimable) lawsuits seeded from real Stitch copy plus plausible
 /// invented entries.
-const List<Lawsuit> kMockActiveLawsuits = [
+///
+/// `final` (not `const`) because each entry carries a [DateTime] deadline, which
+/// has no const constructor.
+final List<Lawsuit> kMockActiveLawsuits = [
   Lawsuit(
     id: 'facebook-data-privacy',
     title: 'Facebook Data Privacy Settlement',
@@ -19,7 +22,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$350',
-    deadline: null,
+    deadline: DateTime(2026, 8, 15),
     expiredDaysAgo: null,
     eligibility:
         'You had an active Facebook account in the United States between 2007 and 2022.',
@@ -36,7 +39,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$150',
-    deadline: null,
+    deadline: DateTime(2026, 7, 20),
     expiredDaysAgo: null,
     eligibility:
         'You purchased a Fitbit device with heart-rate tracking and used it for fitness activities.',
@@ -54,7 +57,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$250',
-    deadline: null,
+    deadline: DateTime(2026, 6, 30),
     expiredDaysAgo: null,
     eligibility:
         'You were a T-Mobile customer whose personal information was exposed in the 2021 data breach.',
@@ -71,7 +74,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$12',
-    deadline: null,
+    deadline: DateTime(2026, 9, 10),
     expiredDaysAgo: null,
     eligibility:
         'You had a consumer Google+ account between January 2015 and April 2019.',
@@ -88,7 +91,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$30',
-    deadline: null,
+    deadline: DateTime(2026, 12, 1),
     expiredDaysAgo: null,
     eligibility:
         'You purchased apps or in-app content from the App Store as a US consumer.',
@@ -105,7 +108,7 @@ const List<Lawsuit> kMockActiveLawsuits = [
     status: LawsuitStatus.active,
     payoutLabel: 'Up to',
     payoutValue: '\$40',
-    deadline: null,
+    deadline: DateTime(2026, 10, 5),
     expiredDaysAgo: null,
     eligibility:
         'You connected a financial account through an app that used Plaid between 2013 and 2021.',
@@ -117,7 +120,9 @@ const List<Lawsuit> kMockActiveLawsuits = [
 ];
 
 /// Expired (closed) lawsuits.
-const List<Lawsuit> kMockExpiredLawsuits = [
+///
+/// `final` (not `const`) because each entry carries a [DateTime] deadline.
+final List<Lawsuit> kMockExpiredLawsuits = [
   Lawsuit(
     id: 'capital-one-breach',
     title: 'Capital One Data Breach',
@@ -126,7 +131,7 @@ const List<Lawsuit> kMockExpiredLawsuits = [
     status: LawsuitStatus.expired,
     payoutLabel: 'Fixed',
     payoutValue: '\$25.00',
-    deadline: null,
+    deadline: DateTime(2026, 5, 19),
     expiredDaysAgo: 12,
     eligibility:
         'You were a Capital One customer affected by the 2019 data breach.',
@@ -143,7 +148,7 @@ const List<Lawsuit> kMockExpiredLawsuits = [
     status: LawsuitStatus.expired,
     payoutLabel: 'Up to',
     payoutValue: '\$125',
-    deadline: null,
+    deadline: DateTime(2026, 4, 16),
     expiredDaysAgo: 45,
     eligibility:
         'Your information was exposed in the 2017 Equifax data breach.',
@@ -160,7 +165,7 @@ const List<Lawsuit> kMockExpiredLawsuits = [
     status: LawsuitStatus.expired,
     payoutLabel: 'Up to',
     payoutValue: '\$100',
-    deadline: null,
+    deadline: DateTime(2026, 3, 2),
     expiredDaysAgo: 90,
     eligibility:
         'You had a Yahoo account between 2012 and 2016 when the breaches occurred.',

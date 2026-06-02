@@ -11,11 +11,17 @@ supabase/
 ├── migrations/
 │   ├── 20260530172624_init_claimpal_schema.sql   # 前向迁移(建表 + RLS + 触发器)
 │   └── 20260530190000_admin_pending_settlements.sql  # Admin review pool + settlement country
+│   └── 20260530233000_autofill_usage_counters.sql  # AI autofill 用量表 + RPC
+│   └── 20260531110000_user_claims.sql  # 用户 claim 快照表 + claim RPC
 ├── rollback/
 │   ├── 20260530172624_init_claimpal_schema_down.sql  # 手动回滚脚本(不归 CLI 管)
 │   └── 20260530190000_admin_pending_settlements_down.sql  # Admin migration 回滚脚本
+│   └── 20260530233000_autofill_usage_counters_down.sql  # Autofill usage migration 回滚脚本
+│   └── 20260531110000_user_claims_down.sql  # user_claims migration 回滚脚本
 ├── tests/
 │   └── reward_engine_test.sql                    # pgTAP 测试:奖励引擎 + 列守卫
+│   └── autofill_usage_test.sql                  # pgTAP 测试:AI autofill 额度持久化
+│   └── user_claims_test.sql                     # pgTAP 测试:user_claims 流转 + 额度扣减
 └── README.md                                     # 本文件
 ```
 
@@ -134,6 +140,8 @@ Admin 回滚脚本必须先跑:它会删除 `pending_settlements`,并撤销 `set
 | `profiles` | 用户档案(1:1 关联 `auth.users`) | `premium_tier` / `premium_until` 为**服务端独占字段** |
 | `settlements` | 集体诉讼和解信息(目录数据) | `version_id` 为增量同步游标(序列自增) |
 | `referrals` | 推荐台账 | 匿名:无任何金额/案件字段 |
+| `autofill_usage_counters` | AI autofill 用量表 | 以 `scope + period_start` 记录 starter 终身额度 / plus 月额度 |
+| `user_claims` | 用户对 settlement 的真实 claim 快照 | 保存状态、进度、表单 payload、重提次数、到账确认金额 |
 | `global_meta` | 动态键值遥测 | 存全局 `data_version` |
 | `pending_settlements` | Admin 临时审核队列 | 客户端 RLS 显式拒绝,审批/拒绝后删除 |
 
@@ -156,6 +164,39 @@ The live `settlements.country` column stores `US` or `CA` so the admin-reviewed 
 - 奖励可**无限叠加**(每条推荐独立触发)。
 - `starter` 升 `plus`,但**绝不降级**已有的 `pro`。
 - 仅在状态**转换**时触发(幂等,重复写入不重复发奖)。
+
+### AI autofill 额度持久化
+
+`autofill_usage_counters` 采用独立 usage 表模式:
+
+- `starter_lifetime`：免费版终身 2 次额度,固定写到同一个生命周期 bucket
+- `plus_monthly`：Plus 有效期内按当月 bucket 统计 5 次额度
+- `pro`：无限额,不会写 usage row
+
+Flutter 客户端通过两个 RPC 访问它:
+
+- `get_current_autofill_usage()`：读取当前生效档位下的已用次数
+- `consume_autofill_credit()`：成功提交 claim 后原子扣减 1 次额度
+
+这能避免前端重启/换设备后把额度“忘光”，也能阻止客户端自己把 `used_count` 改回 0 这种不太讲武德的行为。
+
+### 真实 user claims
+
+`user_claims` 保存的是“当前用户对某个 settlement 的最新 claim 快照”，而不是事件流水：
+
+- 唯一键：`(user_id, settlement_id)`
+- `status`：`draft / submitted / under_review / approved / payout_sent / rejected / self_ineligible`
+- `current_stage`：与 Flutter `ClaimStage` 对齐的 `ai_submitted / court_review / settlement_approved / payout_sent`
+- `filing_data`：JSONB，保存 action-required 字段、proof 文件名、signature payload 等
+- `attempt_count`：记录同一 settlement 被拒后重新提交了几次
+- `payout_amount + payout_confirmed_at`：记录用户在 App 内确认的到账金额与时间
+
+客户端默认只允许 `select` 自己的 claims；写操作走受控 RPC：
+
+- `submit_user_claim(...)`：原子提交 claim，并在同一事务里消费 1 次 autofill credit
+- `mark_self_ineligible(...)`：把 claim 标为用户自判不符合资格（**不扣额度**）
+- `clear_self_ineligible(...)`：撤销自判不符合资格，回到 `draft`
+- `confirm_claim_payout(...)`：记录用户确认到账的金额，供 Tracker 汇总真实到账总额
 
 ### 安全模型(为什么有「列守卫」)
 
