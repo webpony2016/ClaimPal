@@ -12,6 +12,7 @@ build/
 # Tooling artifacts (not part of the app)
 .codegraph/
 .cursor/
+.understand-anything/
 
 # Local environment files and tool state
 .env
