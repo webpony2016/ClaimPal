@@ -8,6 +8,7 @@ import '../../core/widgets/claim_stepper.dart';
 import '../../data/models/filing_draft.dart';
 import '../../data/providers.dart';
 import 'filing_controller.dart';
+import 'signature_codec.dart';
 
 /// AI 1-click smart filing wizard (route `/filing/:id`).
 ///
@@ -425,11 +426,10 @@ class _Step2SignatureState extends ConsumerState<_Step2Signature> {
       ref.read(filingControllerProvider(widget.lawsuitId).notifier);
 
   void _syncSignature() {
-    final pointCount = _points.where((p) => p != null).length;
-    // 'sig:<count>' is an intentional mock placeholder (just enough to make
-    // signatureData non-empty for isStep2Complete) — not real signature
-    // geometry. A real impl would serialize the stroke path or an image.
-    _controller.setSignature(pointCount > 0 ? 'sig:$pointCount' : '');
+    // Serialize the actual stroke geometry so the captured signature — not just
+    // a point count — persists with the filing draft. Encodes to '' when no
+    // strokes exist, keeping FilingDraft.isStep2Complete honest.
+    _controller.setSignature(SignatureCodec.encode(_points));
   }
 
   void _clear() {
